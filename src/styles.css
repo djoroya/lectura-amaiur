@@ -285,6 +285,10 @@ select {
   border-radius: 28px;
 }
 
+.desktop-map {
+  display: block;
+}
+
 .level-list {
   display: grid;
   gap: 16px;
@@ -653,12 +657,52 @@ select {
     align-items: stretch;
   }
 
+  .app-shell {
+    padding: 16px;
+  }
+
+  .hero-copy,
+  .player-panel,
+  .world-map,
+  .pokemon-rewards,
+  .tabs-header,
+  .story-card,
+  .quiz-card {
+    padding: 18px;
+  }
+
+  .desktop-map {
+    display: none;
+  }
+
+  .story-picker {
+    min-width: 100%;
+  }
+
+  .player-stats,
+  .progress-strip,
+  .pokemon-summary,
+  .pokemon-grid,
+  .level-list {
+    grid-template-columns: 1fr;
+  }
+
   .level-list-card {
     grid-template-columns: 1fr;
+    padding: 16px;
   }
 
   .level-list-number {
     margin: 0 auto;
+  }
+
+  .story-progress-badge {
+    min-width: 100%;
+  }
+
+  .quiz-header .score-box,
+  .lesson-chip {
+    text-align: center;
   }
 
   .two-columns {

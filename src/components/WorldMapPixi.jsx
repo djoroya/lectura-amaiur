@@ -29,7 +29,7 @@ function drawBackground(graphics) {
 
 function drawPath(graphics, levels) {
   graphics.clear();
-  graphics.setStrokeStyle({ width: 16, color: 0xffd768, alpha: 0.95 });
+  graphics.lineStyle(16, 0xffd768, 0.95);
 
   for (let index = 0; index < levels.length - 1; index += 1) {
     const current = levels[index];
@@ -40,8 +40,6 @@ function drawPath(graphics, levels) {
     graphics.moveTo(current.x, current.y);
     graphics.quadraticCurveTo(controlX, controlY, next.x, next.y);
   }
-
-  graphics.stroke();
 }
 
 function drawLevelBubble(graphics, level) {
@@ -81,11 +79,7 @@ function makeTextStyle(fontSize, color = '#1d2433') {
   };
 }
 
-export default function WorldMapPixi({
-  worldProgress,
-  unlockedPokemon,
-  onOpenStory,
-}) {
+export default function WorldMapPixi({ worldProgress, unlockedPokemon }) {
   const levels = useMemo(() => {
     return worldProgress.map((entry, index) => ({
       ...entry,
@@ -111,23 +105,16 @@ export default function WorldMapPixi({
         {rewards.map((reward) => (
           <Container key={reward.id} x={reward.x} y={reward.y}>
             <Graphics draw={drawRewardGlow} />
-            <Text text={`★ ${reward.name}`} anchor={0.5} style={makeTextStyle(20, '#1a5e7e')} />
+            <Text
+              text={`★ ${reward.name}`}
+              anchor={0.5}
+              style={makeTextStyle(20, '#1a5e7e')}
+            />
           </Container>
         ))}
 
         {levels.map((level) => (
-          <Container
-            key={level.story.id}
-            x={level.x}
-            y={level.y}
-            eventMode={level.status === 'locked' ? 'none' : 'static'}
-            cursor={level.status === 'locked' ? 'default' : 'pointer'}
-            pointertap={() => {
-              if (level.status !== 'locked') {
-                onOpenStory(level.story.id);
-              }
-            }}
-          >
+          <Container key={level.story.id} x={level.x} y={level.y}>
             <Graphics draw={(graphics) => drawLevelBubble(graphics, level)} />
 
             <Text
@@ -154,7 +141,10 @@ export default function WorldMapPixi({
               }
               anchor={0.5}
               y={102}
-              style={makeTextStyle(15, level.status === 'locked' ? '#6a7388' : '#c66b1d')}
+              style={makeTextStyle(
+                15,
+                level.status === 'locked' ? '#6a7388' : '#c66b1d',
+              )}
             />
           </Container>
         ))}

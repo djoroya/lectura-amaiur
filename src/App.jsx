@@ -487,11 +487,13 @@ function App() {
             </Button>
           </div>
 
-          <WorldMapPixi
-            worldProgress={worldProgress}
-            unlockedPokemon={unlockedPokemon}
-            onOpenStory={openStory}
-          />
+          <div className="desktop-map">
+            <WorldMapPixi
+              worldProgress={worldProgress}
+              unlockedPokemon={unlockedPokemon}
+              onOpenStory={openStory}
+            />
+          </div>
 
           <div className="level-list">
             {worldProgress.map((entry, index) => {
