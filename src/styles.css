@@ -163,6 +163,102 @@ select {
   padding: 24px;
 }
 
+.pokemon-rewards {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(198, 107, 29, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 18px 45px rgba(49, 62, 91, 0.08);
+}
+
+.pokemon-subtitle {
+  margin: 0;
+  color: #4f5b73;
+}
+
+.pokemon-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.pokemon-summary-card {
+  padding: 18px 20px;
+  border-radius: 22px !important;
+  background: linear-gradient(180deg, #eef8ff 0%, #ffffff 100%) !important;
+  border: 1px solid rgba(79, 124, 196, 0.14);
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pokemon-card {
+  padding: 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(29, 36, 51, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  text-align: center;
+}
+
+.pokemon-open {
+  box-shadow: 0 14px 30px rgba(49, 62, 91, 0.1);
+}
+
+.pokemon-locked {
+  background: linear-gradient(180deg, #f1f3f8 0%, #ebeff8 100%);
+  color: #6a7388;
+}
+
+.pokemon-image-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 136px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top, #fff4bf 0%, transparent 40%),
+    linear-gradient(180deg, #f5f9ff 0%, #edf2ff 100%);
+}
+
+.pokemon-image {
+  width: min(100%, 130px);
+  height: auto;
+  image-rendering: auto;
+}
+
+.pokemon-placeholder {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #c5cede 0%, #98a4ba 100%);
+  color: white;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.pokemon-card h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.pokemon-card p,
+.pokemon-message {
+  margin: 0;
+  color: #4f5b73;
+}
+
+.pokemon-message {
+  margin-bottom: 14px;
+}
+
 .map-header {
   display: flex;
   justify-content: space-between;
@@ -546,6 +642,8 @@ select {
   .home-hero,
   .progress-strip,
   .hero,
+  .pokemon-summary,
+  .pokemon-grid,
   .quiz-header,
   .actions,
   .matching-row {

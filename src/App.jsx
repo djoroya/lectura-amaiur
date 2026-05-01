@@ -14,6 +14,8 @@ import stories from './data/stories.json';
 
 const emptyAnswers = {};
 const progressStorageKey = 'lectura-amaiur-progress';
+const pokemonCacheKey = 'lectura-amaiur-pokemon-cache';
+const pokemonRewardIds = [25, 1, 4, 7, 133, 39, 52, 54];
 
 function normalizeText(value) {
   return String(value ?? '')
@@ -75,6 +77,67 @@ function saveStoredProgress(progress) {
   window.localStorage.setItem(progressStorageKey, JSON.stringify(progress));
 }
 
+function loadPokemonCache() {
+  if (typeof window === 'undefined') return {};
+
+  try {
+    const raw = window.localStorage.getItem(pokemonCacheKey);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function savePokemonCache(cache) {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(pokemonCacheKey, JSON.stringify(cache));
+}
+
+function formatPokemonName(value) {
+  return value
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function cleanFlavorText(value) {
+  return value.replace(/[\n\f\r]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+async function fetchPokemonReward(id) {
+  const [pokemonResponse, speciesResponse] = await Promise.all([
+    fetch(`https://pokeapi.co/api/v2/pokemon/${id}`),
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
+  ]);
+
+  if (!pokemonResponse.ok || !speciesResponse.ok) {
+    throw new Error('No se pudo cargar el Pokémon');
+  }
+
+  const pokemon = await pokemonResponse.json();
+  const species = await speciesResponse.json();
+
+  const spanishName =
+    species.names.find((entry) => entry.language.name === 'es')?.name ??
+    formatPokemonName(pokemon.name);
+
+  const spanishDescription =
+    species.flavor_text_entries.find((entry) => entry.language.name === 'es')
+      ?.flavor_text ??
+    species.flavor_text_entries.find((entry) => entry.language.name === 'en')
+      ?.flavor_text ??
+    'Pokémon misterioso desbloqueado por tu avance.';
+
+  return {
+    id,
+    name: spanishName,
+    description: cleanFlavorText(spanishDescription),
+    image:
+      pokemon.sprites.other?.['official-artwork']?.front_default ??
+      pokemon.sprites.front_default,
+  };
+}
+
 function formatBestLabel(progressEntry, totalQuestions) {
   if (!progressEntry) return '0/' + totalQuestions;
   return `${progressEntry.bestScore}/${totalQuestions}`;
@@ -97,10 +160,17 @@ function App() {
   const [submittedStories, setSubmittedStories] = useState({});
   const [activeTab, setActiveTab] = useState(0);
   const [progressByStory, setProgressByStory] = useState(loadStoredProgress);
+  const [pokemonCache, setPokemonCache] = useState(loadPokemonCache);
+  const [pokemonLoading, setPokemonLoading] = useState(false);
+  const [pokemonError, setPokemonError] = useState('');
 
   useEffect(() => {
     saveStoredProgress(progressByStory);
   }, [progressByStory]);
+
+  useEffect(() => {
+    savePokemonCache(pokemonCache);
+  }, [pokemonCache]);
 
   const selectedStory =
     stories.find((story) => story.id === selectedStoryId) ?? stories[0];
@@ -144,6 +214,75 @@ function App() {
       { totalStars: 0, completed: 0, attempts: 0, perfect: 0 },
     );
   }, [worldProgress]);
+
+  const unlockedPokemonCount = useMemo(() => {
+    return Math.min(Math.floor(profileStats.totalStars / 2), pokemonRewardIds.length);
+  }, [profileStats.totalStars]);
+
+  const nextPokemonTarget = useMemo(() => {
+    const nextUnlockIndex = unlockedPokemonCount;
+    if (nextUnlockIndex >= pokemonRewardIds.length) return null;
+
+    return {
+      starsNeeded: (nextUnlockIndex + 1) * 2,
+      remainingStars: Math.max(0, (nextUnlockIndex + 1) * 2 - profileStats.totalStars),
+    };
+  }, [profileStats.totalStars, unlockedPokemonCount]);
+
+  const unlockedPokemon = useMemo(() => {
+    return pokemonRewardIds
+      .slice(0, unlockedPokemonCount)
+      .map((id) => pokemonCache[id])
+      .filter(Boolean);
+  }, [pokemonCache, unlockedPokemonCount]);
+
+  useEffect(() => {
+    const idsToLoad = pokemonRewardIds
+      .slice(0, unlockedPokemonCount)
+      .filter((id) => !pokemonCache[id]);
+
+    if (idsToLoad.length === 0) return;
+
+    let ignore = false;
+
+    async function loadRewards() {
+      setPokemonLoading(true);
+      setPokemonError('');
+
+      try {
+        const loadedRewards = await Promise.all(
+          idsToLoad.map(async (id) => {
+            const reward = await fetchPokemonReward(id);
+            return [id, reward];
+          }),
+        );
+
+        if (ignore) return;
+
+        setPokemonCache((current) => {
+          const next = { ...current };
+          for (const [id, reward] of loadedRewards) {
+            next[id] = reward;
+          }
+          return next;
+        });
+      } catch {
+        if (!ignore) {
+          setPokemonError('No se pudieron cargar las recompensas Pokémon.');
+        }
+      } finally {
+        if (!ignore) {
+          setPokemonLoading(false);
+        }
+      }
+    }
+
+    loadRewards();
+
+    return () => {
+      ignore = true;
+    };
+  }, [pokemonCache, unlockedPokemonCount]);
 
   function openStory(storyId) {
     setSelectedStoryId(storyId);
@@ -271,6 +410,69 @@ function App() {
             <span className="progress-label">Ruta activa</span>
             <strong>Biblioteca</strong>
           </Paper>
+        </section>
+
+        <section className="pokemon-rewards">
+          <div className="map-header">
+            <div>
+              <p className="eyebrow">Recompensas Pokémon</p>
+              <h2>Tu equipo de lectura</h2>
+              <p className="pokemon-subtitle">
+                Se desbloquea un Pokémon nuevo cada 2 estrellas.
+              </p>
+            </div>
+          </div>
+
+          <div className="pokemon-summary">
+            <Paper className="pokemon-summary-card" elevation={0}>
+              <span className="progress-label">Pokémon desbloqueados</span>
+              <strong>
+                {unlockedPokemon.length}/{pokemonRewardIds.length}
+              </strong>
+            </Paper>
+            <Paper className="pokemon-summary-card" elevation={0}>
+              <span className="progress-label">Próximo desbloqueo</span>
+              <strong>
+                {nextPokemonTarget
+                  ? `${nextPokemonTarget.remainingStars} estrella(s)`
+                  : 'Todos conseguidos'}
+              </strong>
+            </Paper>
+          </div>
+
+          {pokemonError ? <p className="pokemon-message">{pokemonError}</p> : null}
+          {pokemonLoading ? (
+            <p className="pokemon-message">Cargando recompensas Pokémon...</p>
+          ) : null}
+
+          <div className="pokemon-grid">
+            {pokemonRewardIds.map((id, index) => {
+              const isUnlocked = index < unlockedPokemonCount;
+              const reward = pokemonCache[id];
+
+              return (
+                <article
+                  key={id}
+                  className={`pokemon-card ${isUnlocked ? 'pokemon-open' : 'pokemon-locked'}`}
+                >
+                  <div className="pokemon-image-wrap">
+                    {isUnlocked && reward?.image ? (
+                      <img src={reward.image} alt={reward.name} className="pokemon-image" />
+                    ) : (
+                      <div className="pokemon-placeholder">?</div>
+                    )}
+                  </div>
+
+                  <h3>{isUnlocked ? reward?.name ?? `Pokémon #${id}` : 'Pokémon oculto'}</h3>
+                  <p>
+                    {isUnlocked
+                      ? reward?.description ?? 'Recompensa de lectura desbloqueada.'
+                      : `Consigue ${(index + 1) * 2} estrellas para desbloquearlo.`}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
         </section>
 
         <section className="world-map">
