@@ -10,6 +10,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import WorldMapPixi from './components/WorldMapPixi';
 import stories from './data/stories.json';
 
 const emptyAnswers = {};
@@ -486,50 +487,49 @@ function App() {
             </Button>
           </div>
 
-          <div className="path-grid">
+          <WorldMapPixi
+            worldProgress={worldProgress}
+            unlockedPokemon={unlockedPokemon}
+            onOpenStory={openStory}
+          />
+
+          <div className="level-list">
             {worldProgress.map((entry, index) => {
-              const alignment = index % 2 === 0 ? 'left' : 'right';
               const isLocked = entry.status === 'locked';
 
               return (
-                <div
+                <button
                   key={entry.story.id}
-                  className={`path-node path-${alignment} ${isLocked ? 'path-locked' : ''}`}
+                  type="button"
+                  className={`level-list-card ${
+                    entry.isCompleted ? 'level-completed' : 'level-open'
+                  } ${isLocked ? 'level-locked' : ''}`}
+                  onClick={() => !isLocked && openStory(entry.story.id)}
+                  disabled={isLocked}
                 >
-                  {index > 0 ? <div className="path-connector" /> : null}
-
-                  <button
-                    type="button"
-                    className={`level-card ${
-                      entry.isCompleted ? 'level-completed' : 'level-open'
-                    } ${isLocked ? 'level-locked' : ''}`}
-                    onClick={() => !isLocked && openStory(entry.story.id)}
-                    disabled={isLocked}
-                  >
-                    <span className="level-bubble">{index + 1}</span>
-                    <div className="level-content">
-                      <span className="story-tag">{entry.story.category}</span>
-                      <h3>{entry.story.title}</h3>
-                      <p>{entry.story.summary}</p>
-                      <div className="level-meta">
-                        <span>
-                          Mejor: {formatBestLabel(entry.progress, entry.story.questions.length)}
-                        </span>
-                        <span className="stars-row">
-                          {'★'.repeat(entry.stars)}
-                          {'☆'.repeat(3 - entry.stars)}
-                        </span>
-                      </div>
-                      <span className={`status-pill status-${entry.status}`}>
-                        {isLocked
-                          ? 'Bloqueado'
-                          : entry.isCompleted
-                            ? 'Completado'
-                            : 'Disponible'}
+                  <span className="level-list-number">{index + 1}</span>
+                  <div className="level-list-content">
+                    <span className="story-tag">{entry.story.category}</span>
+                    <h3>{entry.story.title}</h3>
+                    <p>{entry.story.summary}</p>
+                    <div className="level-meta">
+                      <span>
+                        Mejor: {formatBestLabel(entry.progress, entry.story.questions.length)}
+                      </span>
+                      <span className="stars-row">
+                        {'★'.repeat(entry.stars)}
+                        {'☆'.repeat(3 - entry.stars)}
                       </span>
                     </div>
-                  </button>
-                </div>
+                    <span className={`status-pill status-${entry.status}`}>
+                      {isLocked
+                        ? 'Bloqueado'
+                        : entry.isCompleted
+                          ? 'Completado'
+                          : 'Disponible'}
+                    </span>
+                  </div>
+                </button>
               );
             })}
           </div>

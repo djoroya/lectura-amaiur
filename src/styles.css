@@ -267,51 +267,43 @@ select {
   margin-bottom: 20px;
 }
 
-.path-grid {
+.pixi-map-shell {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 28px;
+  margin-bottom: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 241, 175, 0.55) 0%, transparent 25%),
+    linear-gradient(180deg, #fffdfa 0%, #f4f8ff 100%);
+}
+
+.pixi-map-shell canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 28px;
+}
+
+.level-list {
   display: grid;
-  gap: 20px;
+  gap: 16px;
 }
 
-.path-node {
-  position: relative;
-  display: flex;
-}
-
-.path-left {
-  justify-content: flex-start;
-}
-
-.path-right {
-  justify-content: flex-end;
-}
-
-.path-connector {
-  position: absolute;
-  left: 50%;
-  top: -22px;
-  width: 6px;
-  height: 28px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ffda78 0%, #f09b2e 100%);
-  transform: translateX(-50%);
-}
-
-.level-card {
-  position: relative;
+.level-list-card {
   display: grid;
   grid-template-columns: 74px 1fr;
   gap: 16px;
-  width: min(100%, 620px);
-  padding: 20px;
+  padding: 18px;
   border: none;
-  border-radius: 28px;
+  border-radius: 24px;
   text-align: left;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 16px 35px rgba(49, 62, 91, 0.12);
+  box-shadow: 0 12px 28px rgba(49, 62, 91, 0.1);
 }
 
-.level-card:hover {
+.level-list-card:hover {
   transform: translateY(-2px);
 }
 
@@ -334,7 +326,7 @@ select {
   color: #6a7388;
 }
 
-.level-bubble {
+.level-list-number {
   display: grid;
   place-items: center;
   width: 74px;
@@ -347,16 +339,16 @@ select {
   box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.12);
 }
 
-.level-locked .level-bubble {
+.level-locked .level-list-number {
   background: linear-gradient(180deg, #bbc6de 0%, #8e99b0 100%);
 }
 
-.level-content h3 {
+.level-list-content h3 {
   margin: 0 0 8px;
-  font-size: 1.28rem;
+  font-size: 1.2rem;
 }
 
-.level-content p {
+.level-list-content p {
   margin: 0 0 12px;
   color: #4f5b73;
 }
@@ -661,22 +653,12 @@ select {
     align-items: stretch;
   }
 
-  .level-card {
+  .level-list-card {
     grid-template-columns: 1fr;
   }
 
-  .level-bubble {
+  .level-list-number {
     margin: 0 auto;
-  }
-
-  .path-left,
-  .path-right {
-    justify-content: stretch;
-  }
-
-  .path-connector {
-    left: 24px;
-    transform: none;
   }
 
   .two-columns {
