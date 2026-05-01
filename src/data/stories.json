@@ -1,0 +1,314 @@
+[
+  {
+    "id": "lucia-y-la-biblioteca",
+    "title": "Lucía y la biblioteca de lluvia",
+    "category": "Cuento de aventura",
+    "summary": "Lucía descubre una pequeña biblioteca escondida mientras busca refugio de la lluvia.",
+    "illustration": {
+      "src": "https://i.pinimg.com/originals/01/20/ce/0120ce47d234101b3abf0b73822f7144.jpg",
+      "alt": "Ilustración de una niña leyendo",
+      "caption": "Ilustración para el cuento de la biblioteca",
+      "sourceLabel": "Imagen de referencia",
+      "sourceUrl": "https://i.pinimg.com/originals/01/20/ce/0120ce47d234101b3abf0b73822f7144.jpg"
+    },
+    "content": [
+      "Lucía salió del colegio y vio que el cielo se había puesto gris. Empezó a llover muy fuerte y corrió por una calle estrecha hasta encontrar un portal antiguo. Mientras esperaba, notó una puerta de madera con un cartel pequeño que decía: Biblioteca de lluvia.",
+      "Entró con cuidado y encontró una sala cálida, con cojines amarillos y estanterías bajas. Una señora de pelo blanco sonrió y le dijo que allí cada visitante debía leer un cuento antes de marcharse. Lucía eligió un libro sobre una ballena azul que ayudaba a los marineros perdidos.",
+      "Mientras pasaba las páginas, Lucía escuchó el sonido suave de la lluvia golpeando los cristales. A su lado había una lámpara con luz dorada y una taza de chocolate caliente que olía muy bien. Por un momento, pensó que aquella biblioteca parecía un lugar sacado de un sueño.",
+      "Antes de irse, la señora le enseñó una estantería especial donde cada libro tenía dentro una pequeña nota escrita por otros niños. Algunos contaban que un cuento les había hecho reír y otros decían que les había dado valentía. Lucía prometió que la próxima vez también dejaría su mensaje.",
+      "Cuando terminó de leer, la lluvia casi había parado. La señora le regaló un marcapáginas con forma de nube y le dijo: Siempre que un cuento te acompaña, nunca caminas sola. Lucía salió contenta y decidió volver otro día con su hermano."
+    ],
+    "questions": [
+      {
+        "id": "l1",
+        "type": "multiple_choice",
+        "prompt": "¿Por qué corrió Lucía por una calle estrecha?",
+        "options": ["Porque llegaba tarde a casa", "Porque empezó a llover muy fuerte", "Porque quería jugar con su hermano"],
+        "correctAnswer": "Porque empezó a llover muy fuerte",
+        "explanation": "Lucía corrió porque empezó a llover muy fuerte."
+      },
+      {
+        "id": "l2",
+        "type": "true_false",
+        "prompt": "Lucía encontró la biblioteca dentro de un castillo.",
+        "correctAnswer": "Falso",
+        "explanation": "La biblioteca estaba tras una puerta de madera en un portal antiguo."
+      },
+      {
+        "id": "l3",
+        "type": "short_text",
+        "prompt": "¿Qué forma tenía el marcapáginas que recibió Lucía?",
+        "acceptedAnswers": ["nube", "una nube"],
+        "explanation": "El marcapáginas tenía forma de nube."
+      },
+      {
+        "id": "l4",
+        "type": "multiple_choice",
+        "prompt": "¿Cómo era la sala de la biblioteca?",
+        "options": ["Fría y oscura", "Cálida con cojines amarillos", "Vacía y ruidosa"],
+        "correctAnswer": "Cálida con cojines amarillos",
+        "explanation": "La sala era cálida y tenía cojines amarillos."
+      },
+      {
+        "id": "l5",
+        "type": "true_false",
+        "prompt": "La señora obligaba a cantar antes de salir.",
+        "correctAnswer": "Falso",
+        "explanation": "La regla era leer un cuento antes de marcharse."
+      },
+      {
+        "id": "l6",
+        "type": "multiple_choice",
+        "prompt": "¿Sobre qué trataba el libro que eligió Lucía?",
+        "options": ["Una ballena azul que ayudaba a marineros", "Un dragón rojo que guardaba un tesoro", "Una gata que hablaba con las estrellas"],
+        "correctAnswer": "Una ballena azul que ayudaba a marineros",
+        "explanation": "Lucía eligió un libro sobre una ballena azul que ayudaba a marineros perdidos."
+      },
+      {
+        "id": "l7",
+        "type": "matching",
+        "prompt": "Une cada elemento con su descripción.",
+        "pairs": [
+          { "left": "Puerta", "right": "De madera" },
+          { "left": "Cojines", "right": "Amarillos" },
+          { "left": "Marcapáginas", "right": "Con forma de nube" }
+        ],
+        "rightOptions": ["Con forma de nube", "Amarillos", "De madera"],
+        "explanation": "Puerta - De madera, Cojines - Amarillos, Marcapáginas - Con forma de nube."
+      },
+      {
+        "id": "l8",
+        "type": "short_text",
+        "prompt": "¿Con quién quería volver Lucía otro día?",
+        "acceptedAnswers": ["su hermano", "con su hermano", "hermano"],
+        "explanation": "Lucía decidió volver otro día con su hermano."
+      },
+      {
+        "id": "l9",
+        "type": "true_false",
+        "prompt": "Cuando Lucía terminó de leer, la lluvia casi había parado.",
+        "correctAnswer": "Verdadero",
+        "explanation": "El texto dice que la lluvia casi había parado."
+      },
+      {
+        "id": "l10",
+        "type": "multiple_choice",
+        "prompt": "¿Cómo salió Lucía de la biblioteca?",
+        "options": ["Enfadada", "Contenta", "Asustada"],
+        "correctAnswer": "Contenta",
+        "explanation": "Lucía salió contenta."
+      }
+    ]
+  },
+  {
+    "id": "el-huerto-de-noa",
+    "title": "El huerto de Noa",
+    "category": "Cuento cotidiano",
+    "summary": "Noa aprende a cuidar un pequeño huerto en el patio de su abuelo.",
+    "illustration": {
+      "src": "https://png.pngtree.com/background/20250120/original/pngtree-a-cartoon-style-vector-illustration-of-vegetable-garden-with-beets-picture-image_15857611.jpg",
+      "alt": "Ilustración de niños trabajando en un jardín",
+      "caption": "Ilustración para el cuento del huerto",
+      "sourceLabel": "Imagen de referencia",
+      "sourceUrl": "https://png.pngtree.com/background/20250120/original/pngtree-a-cartoon-style-vector-illustration-of-vegetable-garden-with-beets-picture-image_15857611.jpg"
+    },
+    "content": [
+      "Noa pasó el sábado en casa de su abuelo Mateo. En el patio había macetas grandes, una regadera verde y un banco de madera. El abuelo le propuso sembrar tomates cherry, lechugas y unas semillas de albahaca.",
+      "Primero removieron la tierra con una pala pequeña. Después hicieron agujeros, colocaron las semillas y las taparon con cuidado. Noa quería echar mucha agua, pero su abuelo le explicó que las plantas necesitan agua suficiente, no demasiada.",
+      "Cada visita al huerto era distinta. Un día encontraron una mariquita caminando por una hoja, y otro día vieron una lombriz que ayudaba a mover la tierra. El abuelo Mateo le explicó a Noa que incluso los animalitos pequeños pueden ayudar a que las plantas crezcan sanas.",
+      "Noa empezó a llevar una libreta donde dibujaba las plantas y apuntaba los cambios que veía. Anotó cuando aparecieron los primeros brotes, cuando las hojas se hicieron más grandes y cuando la albahaca empezó a oler muy fuerte. Así aprendió que cuidar un huerto necesita paciencia y atención.",
+      "Durante varias semanas, Noa visitó el huerto cada tarde. Vio salir hojas pequeñas y olió la albahaca cuando creció. El día que recogieron los primeros tomates, prepararon una ensalada y Noa dijo que sabía mejor porque la habían cuidado juntos."
+    ],
+    "questions": [
+      {
+        "id": "n1",
+        "type": "multiple_choice",
+        "prompt": "¿Dónde pasó Noa el sábado?",
+        "options": ["En el colegio", "En casa de su abuelo Mateo", "En la playa"],
+        "correctAnswer": "En casa de su abuelo Mateo",
+        "explanation": "Noa pasó el sábado en casa de su abuelo Mateo."
+      },
+      {
+        "id": "n2",
+        "type": "true_false",
+        "prompt": "La regadera del patio era azul.",
+        "correctAnswer": "Falso",
+        "explanation": "La regadera era verde."
+      },
+      {
+        "id": "n3",
+        "type": "matching",
+        "prompt": "Une cada objeto o planta con su detalle.",
+        "pairs": [
+          { "left": "Regadera", "right": "Verde" },
+          { "left": "Banco", "right": "De madera" },
+          { "left": "Tomates", "right": "Cherry" }
+        ],
+        "rightOptions": ["Verde", "Cherry", "De madera"],
+        "explanation": "Regadera - Verde, Banco - De madera, Tomates - Cherry."
+      },
+      {
+        "id": "n4",
+        "type": "multiple_choice",
+        "prompt": "¿Qué hicieron primero para sembrar?",
+        "options": ["Recogieron tomates", "Removieron la tierra", "Prepararon una ensalada"],
+        "correctAnswer": "Removieron la tierra",
+        "explanation": "Primero removieron la tierra con una pala pequeña."
+      },
+      {
+        "id": "n5",
+        "type": "short_text",
+        "prompt": "Escribe una de las plantas o semillas que sembraron.",
+        "acceptedAnswers": ["tomates cherry", "tomates", "lechugas", "albahaca"],
+        "explanation": "Sembraron tomates cherry, lechugas y semillas de albahaca."
+      },
+      {
+        "id": "n6",
+        "type": "true_false",
+        "prompt": "El abuelo le dijo a Noa que echara demasiada agua.",
+        "correctAnswer": "Falso",
+        "explanation": "Le explicó que las plantas necesitan agua suficiente, no demasiada."
+      },
+      {
+        "id": "n7",
+        "type": "multiple_choice",
+        "prompt": "¿Cuánto tiempo cuidó Noa el huerto?",
+        "options": ["Solo una mañana", "Durante varias semanas", "Todo un año"],
+        "correctAnswer": "Durante varias semanas",
+        "explanation": "Noa visitó el huerto durante varias semanas."
+      },
+      {
+        "id": "n8",
+        "type": "short_text",
+        "prompt": "¿Qué prepararon cuando recogieron los primeros tomates?",
+        "acceptedAnswers": ["ensalada", "una ensalada"],
+        "explanation": "Prepararon una ensalada."
+      },
+      {
+        "id": "n9",
+        "type": "true_false",
+        "prompt": "Noa pensó que la ensalada sabía mejor porque la habían cuidado juntos.",
+        "correctAnswer": "Verdadero",
+        "explanation": "Eso es exactamente lo que dijo Noa."
+      },
+      {
+        "id": "n10",
+        "type": "multiple_choice",
+        "prompt": "¿Qué hizo Noa cuando la albahaca creció?",
+        "options": ["La pintó", "La olió", "La escondió"],
+        "correctAnswer": "La olió",
+        "explanation": "Noa olió la albahaca cuando creció."
+      }
+    ]
+  },
+  {
+    "id": "el-misterio-de-las-piramides",
+    "title": "El misterio de las pirámides de Egipto",
+    "category": "Texto informativo",
+    "summary": "Un texto sobre las teorías más curiosas y la explicación histórica más aceptada sobre la construcción de las pirámides.",
+    "illustration": {
+      "src": "https://www.mundoprimaria.com/wp-content/uploads/2022/06/las-piramides-de-egipto-para-ninos-en-primaria.jpg",
+      "alt": "Fotografía de una pirámide de Egipto",
+      "caption": "Ilustración para el texto de las pirámides",
+      "sourceLabel": "Imagen de referencia",
+      "sourceUrl": "https://www.mundoprimaria.com/wp-content/uploads/2022/06/las-piramides-de-egipto-para-ninos-en-primaria.jpg"
+    },
+    "content": [
+      "Las pirámides de Egipto asombran al mundo desde hace miles de años. Son enormes, están hechas con bloques de piedra muy pesados y fueron construidas sin las máquinas modernas que usamos hoy. Por eso, muchas personas se preguntan cómo pudieron levantarlas hace tanto tiempo.",
+      "A lo largo de los años han aparecido teorías muy raras. Algunas personas dicen que las hicieron gigantes, otras imaginan que recibieron ayuda de extraterrestres y otras creen que se usaron secretos perdidos imposibles de repetir. Estas ideas llaman la atención porque las pirámides parecen impresionantes, pero no hay pruebas sólidas que las demuestren.",
+      "Los arqueólogos, que son las personas que estudian restos del pasado, han encontrado una explicación mucho más razonable. La teoría más aceptada dice que las pirámides fueron construidas por miles de trabajadores expertos y bien organizados. No eran esclavos mágicos ni seres de otro planeta, sino personas que sabían cortar piedra, moverla y colocarla con mucha precisión.",
+      "Para hacerlo, probablemente usaron rampas, cuerdas, trineos de madera y herramientas de cobre y piedra. También se cree que humedecían la arena para arrastrar mejor los bloques y que planificaban cada parte de la obra con gran cuidado. Construir una pirámide llevaba años y exigía comida, descanso, medición y trabajo en equipo.",
+      "Hoy la explicación más aceptada no habla de magia, sino de inteligencia humana, experiencia y organización. Las pirámides siguen siendo misteriosas en algunos detalles, porque no conocemos cada paso exacto, pero la mayoría de los especialistas piensa que fueron construidas por egipcios muy preparados. Su gran logro nos recuerda que las personas pueden hacer cosas enormes cuando colaboran y aprenden durante mucho tiempo."
+    ],
+    "questions": [
+      {
+        "id": "p1",
+        "type": "multiple_choice",
+        "prompt": "¿Por qué muchas personas se preguntan cómo se construyeron las pirámides?",
+        "options": ["Porque son pequeñas", "Porque son enormes y muy antiguas", "Porque están hechas de madera"],
+        "correctAnswer": "Porque son enormes y muy antiguas",
+        "explanation": "La gente se lo pregunta porque son enormes, antiguas y construidas sin máquinas modernas."
+      },
+      {
+        "id": "p2",
+        "type": "true_false",
+        "prompt": "El texto dice que hay pruebas sólidas de que los extraterrestres construyeron las pirámides.",
+        "correctAnswer": "Falso",
+        "explanation": "El texto dice que esas ideas llaman la atención, pero no tienen pruebas sólidas."
+      },
+      {
+        "id": "p3",
+        "type": "multiple_choice",
+        "prompt": "¿Quiénes han estudiado una explicación más razonable?",
+        "options": ["Los arqueólogos", "Los astronautas", "Los piratas"],
+        "correctAnswer": "Los arqueólogos",
+        "explanation": "El texto dice que los arqueólogos han encontrado una explicación mucho más razonable."
+      },
+      {
+        "id": "p4",
+        "type": "short_text",
+        "prompt": "Escribe una herramienta o ayuda que probablemente usaron para mover los bloques.",
+        "acceptedAnswers": ["rampas", "cuerdas", "trineos de madera", "trineos", "herramientas de cobre", "herramientas de piedra"],
+        "explanation": "Probablemente usaron rampas, cuerdas, trineos de madera y herramientas."
+      },
+      {
+        "id": "p5",
+        "type": "true_false",
+        "prompt": "Según el texto, construir una pirámide llevaba años.",
+        "correctAnswer": "Verdadero",
+        "explanation": "El texto explica que construir una pirámide llevaba años."
+      },
+      {
+        "id": "p6",
+        "type": "matching",
+        "prompt": "Une cada idea con su grupo correcto.",
+        "pairs": [
+          { "left": "Extraterrestres", "right": "Teoría rara" },
+          { "left": "Rampas y cuerdas", "right": "Explicación aceptada" },
+          { "left": "Trabajo en equipo", "right": "Explicación aceptada" }
+        ],
+        "rightOptions": ["Teoría rara", "Explicación aceptada"],
+        "explanation": "Extraterrestres - Teoría rara, Rampas y cuerdas - Explicación aceptada, Trabajo en equipo - Explicación aceptada."
+      },
+      {
+        "id": "p7",
+        "type": "multiple_choice",
+        "prompt": "¿Qué hacían probablemente con la arena?",
+        "options": ["La pintaban", "La humedecían", "La congelaban"],
+        "correctAnswer": "La humedecían",
+        "explanation": "El texto dice que probablemente humedecían la arena para arrastrar mejor los bloques."
+      },
+      {
+        "id": "p8",
+        "type": "short_text",
+        "prompt": "¿Qué nos recuerdan las pirámides sobre las personas?",
+        "acceptedAnswers": [
+          "que pueden hacer cosas enormes cuando colaboran",
+          "que pueden hacer cosas enormes cuando colaboran y aprenden durante mucho tiempo",
+          "que las personas pueden hacer cosas enormes cuando colaboran",
+          "que las personas pueden hacer cosas enormes cuando colaboran y aprenden durante mucho tiempo"
+        ],
+        "explanation": "Nos recuerdan que las personas pueden hacer cosas enormes cuando colaboran y aprenden durante mucho tiempo."
+      },
+      {
+        "id": "p9",
+        "type": "true_false",
+        "prompt": "El texto afirma que conocemos cada paso exacto de la construcción.",
+        "correctAnswer": "Falso",
+        "explanation": "El texto dice que aún no conocemos cada paso exacto."
+      },
+      {
+        "id": "p10",
+        "type": "multiple_choice",
+        "prompt": "¿Cuál es la explicación más aceptada sobre la construcción de las pirámides?",
+        "options": [
+          "Que las hicieron seres mágicos",
+          "Que las construyeron egipcios muy preparados y organizados",
+          "Que aparecieron solas en el desierto"
+        ],
+        "correctAnswer": "Que las construyeron egipcios muy preparados y organizados",
+        "explanation": "La explicación más aceptada habla de egipcios preparados, herramientas, organización y trabajo en equipo."
+      }
+    ]
+  }
+]
