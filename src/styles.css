@@ -30,10 +30,54 @@ select {
   padding: 24px;
 }
 
+.home-hero,
 .progress-strip,
 .hero {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+.hero-copy,
+.player-panel,
+.world-map {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(198, 107, 29, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 18px 45px rgba(49, 62, 91, 0.08);
+}
+
+.hero-copy,
+.player-panel {
+  padding: 24px;
+}
+
+.player-panel {
+  background:
+    radial-gradient(circle at top right, #fff1af 0%, transparent 35%),
+    linear-gradient(180deg, #ffffff 0%, #f9f5ff 100%);
+}
+
+.player-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #1d2433;
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.player-stats {
+  display: grid;
+  gap: 18px;
 }
 
 .hero {
@@ -42,6 +86,15 @@ select {
   gap: 24px;
   align-items: end;
   margin-bottom: 24px;
+}
+
+.hero-lesson {
+  align-items: start;
+}
+
+.back-button {
+  margin-bottom: 12px !important;
+  color: #8b4c1e !important;
 }
 
 .progress-strip {
@@ -102,6 +155,146 @@ select {
   gap: 8px;
   min-width: 240px;
   font-weight: 700;
+}
+
+.world-map {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.path-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.path-node {
+  position: relative;
+  display: flex;
+}
+
+.path-left {
+  justify-content: flex-start;
+}
+
+.path-right {
+  justify-content: flex-end;
+}
+
+.path-connector {
+  position: absolute;
+  left: 50%;
+  top: -22px;
+  width: 6px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffda78 0%, #f09b2e 100%);
+  transform: translateX(-50%);
+}
+
+.level-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 16px;
+  width: min(100%, 620px);
+  padding: 20px;
+  border: none;
+  border-radius: 28px;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 16px 35px rgba(49, 62, 91, 0.12);
+}
+
+.level-card:hover {
+  transform: translateY(-2px);
+}
+
+.level-open {
+  background:
+    radial-gradient(circle at top right, #fff0b4 0%, transparent 32%),
+    linear-gradient(180deg, #fffef7 0%, #ffffff 100%);
+}
+
+.level-completed {
+  background:
+    radial-gradient(circle at top right, #ccf6de 0%, transparent 32%),
+    linear-gradient(180deg, #f5fff8 0%, #ffffff 100%);
+}
+
+.level-locked {
+  cursor: not-allowed;
+  box-shadow: none;
+  background: linear-gradient(180deg, #f1f3f8 0%, #e6ebf6 100%);
+  color: #6a7388;
+}
+
+.level-bubble {
+  display: grid;
+  place-items: center;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffcc57 0%, #f0902c 100%);
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: 800;
+  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.12);
+}
+
+.level-locked .level-bubble {
+  background: linear-gradient(180deg, #bbc6de 0%, #8e99b0 100%);
+}
+
+.level-content h3 {
+  margin: 0 0 8px;
+  font-size: 1.28rem;
+}
+
+.level-content p {
+  margin: 0 0 12px;
+  color: #4f5b73;
+}
+
+.level-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.status-available {
+  background: #e6f3ff;
+  color: #1b5f91;
+}
+
+.status-locked {
+  background: #eef1f7;
+  color: #677188;
+}
+
+.status-completed {
+  background: #e8f9ee;
+  color: #26724a;
 }
 
 .tabs-shell {
@@ -350,6 +543,7 @@ select {
 }
 
 @media (max-width: 900px) {
+  .home-hero,
   .progress-strip,
   .hero,
   .quiz-header,
@@ -362,9 +556,29 @@ select {
   .quiz-header,
   .actions,
   .matching-row,
-  .title-row {
+  .title-row,
+  .map-header,
+  .level-meta {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .level-card {
+    grid-template-columns: 1fr;
+  }
+
+  .level-bubble {
+    margin: 0 auto;
+  }
+
+  .path-left,
+  .path-right {
+    justify-content: stretch;
+  }
+
+  .path-connector {
+    left: 24px;
+    transform: none;
   }
 
   .two-columns {

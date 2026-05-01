@@ -30,7 +30,6 @@ function isAnswerCorrect(question, answer) {
 
   if (question.type === 'matching') {
     if (!answer) return false;
-
     return question.pairs.every((pair) => answer[pair.left] === pair.right);
   }
 
@@ -54,7 +53,6 @@ function getStars(score, totalQuestions) {
   if (!totalQuestions) return 0;
 
   const ratio = score / totalQuestions;
-
   if (ratio === 1) return 3;
   if (ratio >= 0.7) return 2;
   if (ratio >= 0.4) return 1;
@@ -78,11 +76,22 @@ function saveStoredProgress(progress) {
 }
 
 function formatBestLabel(progressEntry, totalQuestions) {
-  if (!progressEntry) return 'Sin intentos';
+  if (!progressEntry) return '0/' + totalQuestions;
   return `${progressEntry.bestScore}/${totalQuestions}`;
 }
 
+function getStoryStatus(index, progressByStory) {
+  if (index === 0) return 'available';
+
+  const previousStory = stories[index - 1];
+  const previousProgress = progressByStory[previousStory.id];
+
+  if (previousProgress?.bestScore > 0) return 'available';
+  return 'locked';
+}
+
 function App() {
+  const [screen, setScreen] = useState('home');
   const [selectedStoryId, setSelectedStoryId] = useState(stories[0]?.id ?? null);
   const [answersByStory, setAnswersByStory] = useState({});
   const [submittedStories, setSubmittedStories] = useState({});
@@ -95,40 +104,52 @@ function App() {
 
   const selectedStory =
     stories.find((story) => story.id === selectedStoryId) ?? stories[0];
-  const selectedIllustration = selectedStory.illustration;
-  const currentAnswers = answersByStory[selectedStory.id] ?? emptyAnswers;
-  const currentProgress = progressByStory[selectedStory.id];
-  const isSubmitted = submittedStories[selectedStory.id] ?? false;
+  const selectedIllustration = selectedStory?.illustration;
+  const currentAnswers = answersByStory[selectedStory?.id] ?? emptyAnswers;
+  const currentProgress = progressByStory[selectedStory?.id];
+  const isSubmitted = submittedStories[selectedStory?.id] ?? false;
 
   const score = useMemo(() => {
     if (!selectedStory) return 0;
     return getScore(selectedStory, currentAnswers);
   }, [currentAnswers, selectedStory]);
 
-  const globalProgress = useMemo(() => {
-    return stories.reduce(
-      (totals, story) => {
-        const entry = progressByStory[story.id];
-        if (!entry) return totals;
+  const worldProgress = useMemo(() => {
+    return stories.map((story, index) => {
+      const progress = progressByStory[story.id];
+      const status = getStoryStatus(index, progressByStory);
+      const isCompleted = (progress?.bestScore ?? 0) > 0;
 
-        totals.totalStars += entry.bestStars ?? 0;
-        totals.completedStories += 1;
-        totals.totalAttempts += entry.attempts ?? 0;
+      return {
+        story,
+        progress,
+        status,
+        isCompleted,
+        stars: progress?.bestStars ?? 0,
+      };
+    });
+  }, [progressByStory]);
 
-        if (entry.bestScore === story.questions.length) {
-          totals.perfectStories += 1;
+  const profileStats = useMemo(() => {
+    return worldProgress.reduce(
+      (totals, entry) => {
+        totals.totalStars += entry.stars;
+        totals.completed += entry.isCompleted ? 1 : 0;
+        totals.attempts += entry.progress?.attempts ?? 0;
+        if ((entry.progress?.bestScore ?? 0) === entry.story.questions.length) {
+          totals.perfect += 1;
         }
-
         return totals;
       },
-      {
-        totalStars: 0,
-        completedStories: 0,
-        totalAttempts: 0,
-        perfectStories: 0,
-      },
+      { totalStars: 0, completed: 0, attempts: 0, perfect: 0 },
     );
-  }, [progressByStory]);
+  }, [worldProgress]);
+
+  function openStory(storyId) {
+    setSelectedStoryId(storyId);
+    setActiveTab(0);
+    setScreen('lesson');
+  }
 
   function updateAnswer(questionId, value) {
     setAnswersByStory((current) => ({
@@ -199,24 +220,134 @@ function App() {
     }
   }
 
-  function handleStoryChange(event) {
-    setSelectedStoryId(event.target.value);
-    setActiveTab(0);
-  }
-
   if (!selectedStory) {
     return <main className="app-shell">No hay cuentos cargados todavía.</main>;
   }
 
+  if (screen === 'home') {
+    return (
+      <main className="app-shell">
+        <section className="home-hero">
+          <div className="hero-copy">
+            <p className="eyebrow">Mapa de aventura</p>
+            <h1>Lectura Amaiur</h1>
+            <p className="hero-text">
+              Explora cuentos, gana estrellas y desbloquea nuevos retos como en
+              un videojuego.
+            </p>
+          </div>
+
+          <div className="player-panel">
+            <span className="player-badge">Aventurera lectora</span>
+            <div className="player-stats">
+              <div>
+                <span className="progress-label">Estrellas</span>
+                <strong>{profileStats.totalStars}</strong>
+              </div>
+              <div>
+                <span className="progress-label">Cuentos superados</span>
+                <strong>
+                  {profileStats.completed}/{stories.length}
+                </strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="progress-strip">
+          <Paper className="progress-card" elevation={0}>
+            <span className="progress-label">Intentos totales</span>
+            <strong>{profileStats.attempts}</strong>
+          </Paper>
+          <Paper className="progress-card" elevation={0}>
+            <span className="progress-label">Plenos</span>
+            <strong>{profileStats.perfect}</strong>
+          </Paper>
+          <Paper className="progress-card" elevation={0}>
+            <span className="progress-label">Nivel actual</span>
+            <strong>{profileStats.completed + 1}</strong>
+          </Paper>
+          <Paper className="progress-card" elevation={0}>
+            <span className="progress-label">Ruta activa</span>
+            <strong>Biblioteca</strong>
+          </Paper>
+        </section>
+
+        <section className="world-map">
+          <div className="map-header">
+            <div>
+              <p className="eyebrow">Camino de cuentos</p>
+              <h2>Elige tu siguiente nivel</h2>
+            </div>
+            <Button className="ghost-button" variant="text" onClick={resetAllProgress}>
+              Reiniciar progreso
+            </Button>
+          </div>
+
+          <div className="path-grid">
+            {worldProgress.map((entry, index) => {
+              const alignment = index % 2 === 0 ? 'left' : 'right';
+              const isLocked = entry.status === 'locked';
+
+              return (
+                <div
+                  key={entry.story.id}
+                  className={`path-node path-${alignment} ${isLocked ? 'path-locked' : ''}`}
+                >
+                  {index > 0 ? <div className="path-connector" /> : null}
+
+                  <button
+                    type="button"
+                    className={`level-card ${
+                      entry.isCompleted ? 'level-completed' : 'level-open'
+                    } ${isLocked ? 'level-locked' : ''}`}
+                    onClick={() => !isLocked && openStory(entry.story.id)}
+                    disabled={isLocked}
+                  >
+                    <span className="level-bubble">{index + 1}</span>
+                    <div className="level-content">
+                      <span className="story-tag">{entry.story.category}</span>
+                      <h3>{entry.story.title}</h3>
+                      <p>{entry.story.summary}</p>
+                      <div className="level-meta">
+                        <span>
+                          Mejor: {formatBestLabel(entry.progress, entry.story.questions.length)}
+                        </span>
+                        <span className="stars-row">
+                          {'★'.repeat(entry.stars)}
+                          {'☆'.repeat(3 - entry.stars)}
+                        </span>
+                      </div>
+                      <span className={`status-pill status-${entry.status}`}>
+                        {isLocked
+                          ? 'Bloqueado'
+                          : entry.isCompleted
+                            ? 'Completado'
+                            : 'Disponible'}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="app-shell">
-      <section className="hero">
+      <section className="hero hero-lesson">
         <div>
+          <Button className="back-button" variant="text" onClick={() => setScreen('home')}>
+            Volver al mapa
+          </Button>
           <p className="eyebrow">Lectura y comprensión</p>
-          <h1>Lectura Amaiur</h1>
+          <h1>{selectedStory.title}</h1>
           <p className="hero-text">
-            Lee, responde y guarda tus puntuaciones como en una pequeña aventura
-            de aprendizaje.
+            Lee el cuento con calma y después responde las {selectedStory.questions.length}{' '}
+            preguntas.
           </p>
         </div>
 
@@ -226,36 +357,17 @@ function App() {
             labelId="story-select-label"
             value={selectedStory.id}
             label="Elegir cuento"
-            onChange={handleStoryChange}
+            onChange={(event) => setSelectedStoryId(event.target.value)}
           >
-            {stories.map((story) => (
-              <MenuItem key={story.id} value={story.id}>
-                {story.title}
-              </MenuItem>
-            ))}
+            {worldProgress
+              .filter((entry, index) => getStoryStatus(index, progressByStory) !== 'locked')
+              .map((entry) => (
+                <MenuItem key={entry.story.id} value={entry.story.id}>
+                  {entry.story.title}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
-      </section>
-
-      <section className="progress-strip">
-        <Paper className="progress-card" elevation={0}>
-          <span className="progress-label">Estrellas ganadas</span>
-          <strong>{globalProgress.totalStars}</strong>
-        </Paper>
-        <Paper className="progress-card" elevation={0}>
-          <span className="progress-label">Cuentos completados</span>
-          <strong>
-            {globalProgress.completedStories}/{stories.length}
-          </strong>
-        </Paper>
-        <Paper className="progress-card" elevation={0}>
-          <span className="progress-label">Intentos totales</span>
-          <strong>{globalProgress.totalAttempts}</strong>
-        </Paper>
-        <Paper className="progress-card" elevation={0}>
-          <span className="progress-label">Plenos</span>
-          <strong>{globalProgress.perfectStories}</strong>
-        </Paper>
       </section>
 
       <Paper className="tabs-shell" elevation={0}>
@@ -401,9 +513,6 @@ function App() {
                 </Button>
                 <Button className="secondary-button" variant="outlined" onClick={handleReset}>
                   Empezar de nuevo
-                </Button>
-                <Button className="ghost-button" variant="text" onClick={resetAllProgress}>
-                  Borrar progreso
                 </Button>
               </div>
             </section>
