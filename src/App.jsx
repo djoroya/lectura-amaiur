@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import stories from './data/stories.json';
 
 const emptyAnswers = {};
+const progressStorageKey = 'lectura-amaiur-progress';
 
 function normalizeText(value) {
   return String(value ?? '')
@@ -44,9 +45,41 @@ function isAnswerCorrect(question, answer) {
 }
 
 function getScore(story, answers) {
-  return story.questions.reduce((score, question) => {
-    return score + (isAnswerCorrect(question, answers[question.id]) ? 1 : 0);
+  return story.questions.reduce((total, question) => {
+    return total + (isAnswerCorrect(question, answers[question.id]) ? 1 : 0);
   }, 0);
+}
+
+function getStars(score, totalQuestions) {
+  if (!totalQuestions) return 0;
+
+  const ratio = score / totalQuestions;
+
+  if (ratio === 1) return 3;
+  if (ratio >= 0.7) return 2;
+  if (ratio >= 0.4) return 1;
+  return 0;
+}
+
+function loadStoredProgress() {
+  if (typeof window === 'undefined') return {};
+
+  try {
+    const raw = window.localStorage.getItem(progressStorageKey);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveStoredProgress(progress) {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(progressStorageKey, JSON.stringify(progress));
+}
+
+function formatBestLabel(progressEntry, totalQuestions) {
+  if (!progressEntry) return 'Sin intentos';
+  return `${progressEntry.bestScore}/${totalQuestions}`;
 }
 
 function App() {
@@ -54,18 +87,48 @@ function App() {
   const [answersByStory, setAnswersByStory] = useState({});
   const [submittedStories, setSubmittedStories] = useState({});
   const [activeTab, setActiveTab] = useState(0);
+  const [progressByStory, setProgressByStory] = useState(loadStoredProgress);
+
+  useEffect(() => {
+    saveStoredProgress(progressByStory);
+  }, [progressByStory]);
 
   const selectedStory =
     stories.find((story) => story.id === selectedStoryId) ?? stories[0];
   const selectedIllustration = selectedStory.illustration;
-
   const currentAnswers = answersByStory[selectedStory.id] ?? emptyAnswers;
+  const currentProgress = progressByStory[selectedStory.id];
   const isSubmitted = submittedStories[selectedStory.id] ?? false;
 
   const score = useMemo(() => {
     if (!selectedStory) return 0;
     return getScore(selectedStory, currentAnswers);
   }, [currentAnswers, selectedStory]);
+
+  const globalProgress = useMemo(() => {
+    return stories.reduce(
+      (totals, story) => {
+        const entry = progressByStory[story.id];
+        if (!entry) return totals;
+
+        totals.totalStars += entry.bestStars ?? 0;
+        totals.completedStories += 1;
+        totals.totalAttempts += entry.attempts ?? 0;
+
+        if (entry.bestScore === story.questions.length) {
+          totals.perfectStories += 1;
+        }
+
+        return totals;
+      },
+      {
+        totalStars: 0,
+        completedStories: 0,
+        totalAttempts: 0,
+        perfectStories: 0,
+      },
+    );
+  }, [progressByStory]);
 
   function updateAnswer(questionId, value) {
     setAnswersByStory((current) => ({
@@ -87,10 +150,33 @@ function App() {
   }
 
   function handleSubmit() {
+    const totalQuestions = selectedStory.questions.length;
+    const stars = getStars(score, totalQuestions);
+
     setSubmittedStories((current) => ({
       ...current,
       [selectedStory.id]: true,
     }));
+
+    setProgressByStory((current) => {
+      const previous = current[selectedStory.id] ?? {
+        attempts: 0,
+        bestScore: 0,
+        bestStars: 0,
+      };
+
+      return {
+        ...current,
+        [selectedStory.id]: {
+          attempts: previous.attempts + 1,
+          bestScore: Math.max(previous.bestScore, score),
+          bestStars: Math.max(previous.bestStars, stars),
+          lastScore: score,
+          lastStars: stars,
+          updatedAt: new Date().toISOString(),
+        },
+      };
+    });
   }
 
   function handleReset() {
@@ -102,6 +188,15 @@ function App() {
       ...current,
       [selectedStory.id]: false,
     }));
+  }
+
+  function resetAllProgress() {
+    setProgressByStory({});
+    setSubmittedStories({});
+    setAnswersByStory({});
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem(progressStorageKey);
+    }
   }
 
   function handleStoryChange(event) {
@@ -120,7 +215,8 @@ function App() {
           <p className="eyebrow">Lectura y comprensión</p>
           <h1>Lectura Amaiur</h1>
           <p className="hero-text">
-            Lee el cuento con calma y después responde las 10 preguntas.
+            Lee, responde y guarda tus puntuaciones como en una pequeña aventura
+            de aprendizaje.
           </p>
         </div>
 
@@ -141,13 +237,51 @@ function App() {
         </FormControl>
       </section>
 
+      <section className="progress-strip">
+        <Paper className="progress-card" elevation={0}>
+          <span className="progress-label">Estrellas ganadas</span>
+          <strong>{globalProgress.totalStars}</strong>
+        </Paper>
+        <Paper className="progress-card" elevation={0}>
+          <span className="progress-label">Cuentos completados</span>
+          <strong>
+            {globalProgress.completedStories}/{stories.length}
+          </strong>
+        </Paper>
+        <Paper className="progress-card" elevation={0}>
+          <span className="progress-label">Intentos totales</span>
+          <strong>{globalProgress.totalAttempts}</strong>
+        </Paper>
+        <Paper className="progress-card" elevation={0}>
+          <span className="progress-label">Plenos</span>
+          <strong>{globalProgress.perfectStories}</strong>
+        </Paper>
+      </section>
+
       <Paper className="tabs-shell" elevation={0}>
         <Box className="tabs-header">
-          <Typography className="story-tag">{selectedStory.category}</Typography>
-          <Typography variant="h4" className="tab-title">
-            {selectedStory.title}
-          </Typography>
-          <Typography className="story-summary">{selectedStory.summary}</Typography>
+          <div className="title-row">
+            <div>
+              <Typography className="story-tag">{selectedStory.category}</Typography>
+              <Typography variant="h4" className="tab-title">
+                {selectedStory.title}
+              </Typography>
+              <Typography className="story-summary">
+                {selectedStory.summary}
+              </Typography>
+            </div>
+
+            <div className="story-progress-badge">
+              <span className="progress-label">Mejor puntuación</span>
+              <strong>
+                {formatBestLabel(currentProgress, selectedStory.questions.length)}
+              </strong>
+              <span className="stars-row">
+                {'★'.repeat(currentProgress?.bestStars ?? 0)}
+                {'☆'.repeat(3 - (currentProgress?.bestStars ?? 0))}
+              </span>
+            </div>
+          </div>
         </Box>
 
         <Tabs
@@ -203,7 +337,21 @@ function App() {
                   <div className="score-box">
                     {score} / {selectedStory.questions.length}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="score-box score-box-muted">
+                    Mejor: {currentProgress?.bestScore ?? 0}
+                  </div>
+                )}
+              </div>
+
+              <div className="lesson-summary">
+                <div className="lesson-chip">
+                  Último resultado: {currentProgress?.lastScore ?? 0}/
+                  {selectedStory.questions.length}
+                </div>
+                <div className="lesson-chip">
+                  Intentos: {currentProgress?.attempts ?? 0}
+                </div>
               </div>
 
               <div className="questions">
@@ -249,10 +397,13 @@ function App() {
 
               <div className="actions">
                 <Button className="primary-button" variant="contained" onClick={handleSubmit}>
-                  Corregir
+                  Corregir y guardar
                 </Button>
                 <Button className="secondary-button" variant="outlined" onClick={handleReset}>
                   Empezar de nuevo
+                </Button>
+                <Button className="ghost-button" variant="text" onClick={resetAllProgress}>
+                  Borrar progreso
                 </Button>
               </div>
             </section>

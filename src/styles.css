@@ -30,6 +30,7 @@ select {
   padding: 24px;
 }
 
+.progress-strip,
 .hero {
   max-width: 1200px;
   margin: 0 auto;
@@ -41,6 +42,33 @@ select {
   gap: 24px;
   align-items: end;
   margin-bottom: 24px;
+}
+
+.progress-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.progress-card {
+  padding: 18px 20px;
+  border-radius: 22px !important;
+  background: linear-gradient(180deg, #fff7e8 0%, #ffffff 100%) !important;
+  border: 1px solid rgba(198, 107, 29, 0.14);
+}
+
+.progress-card strong,
+.story-progress-badge strong {
+  display: block;
+  font-size: 1.6rem;
+}
+
+.progress-label {
+  display: block;
+  color: #6c7690;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
 }
 
 .eyebrow,
@@ -91,6 +119,29 @@ select {
 .story-card,
 .quiz-card {
   padding: 24px;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: start;
+}
+
+.story-progress-badge {
+  min-width: 210px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fff5d8 0%, #fff 100%);
+  border: 1px solid rgba(198, 107, 29, 0.18);
+}
+
+.stars-row {
+  display: block;
+  color: #f0a11f;
+  letter-spacing: 0.12em;
+  font-size: 1.1rem;
+  margin-top: 6px;
 }
 
 .tab-title {
@@ -154,6 +205,21 @@ select {
   justify-content: space-between;
   gap: 16px;
   align-items: center;
+}
+
+.lesson-summary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 18px 0 8px;
+}
+
+.lesson-chip {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #eef3ff;
+  color: #33415f;
+  font-weight: 700;
 }
 
 .questions {
@@ -241,6 +307,11 @@ select {
   font-weight: 700;
 }
 
+.score-box-muted {
+  background: #dfe8ff;
+  color: #22304c;
+}
+
 .feedback {
   margin-bottom: 0;
   font-size: 0.95rem;
@@ -274,18 +345,26 @@ select {
   background: #e8eefc !important;
 }
 
+.ghost-button {
+  color: #8b4c1e !important;
+}
+
 @media (max-width: 900px) {
+  .progress-strip,
   .hero,
   .quiz-header,
   .actions,
   .matching-row {
     grid-template-columns: 1fr;
-    flex-direction: column;
-    align-items: stretch;
   }
 
-  .layout {
-    display: grid;
+  .hero,
+  .quiz-header,
+  .actions,
+  .matching-row,
+  .title-row {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .two-columns {
