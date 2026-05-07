@@ -1,10 +1,10 @@
 :root {
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-  color: #1d2433;
+  color: #241b3d;
   background:
-    radial-gradient(circle at top left, #fff4c2 0%, transparent 30%),
-    radial-gradient(circle at top right, #c8f1e7 0%, transparent 25%),
-    linear-gradient(180deg, #fdf8ed 0%, #f3f6ff 100%);
+    radial-gradient(circle at top left, #f4dcff 0%, transparent 30%),
+    radial-gradient(circle at top right, #d9ccff 0%, transparent 25%),
+    linear-gradient(180deg, #fcf7ff 0%, #f3efff 100%);
   line-height: 1.5;
   font-weight: 400;
 }
@@ -49,9 +49,9 @@ select {
 .player-panel,
 .world-map {
   background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(198, 107, 29, 0.14);
+  border: 1px solid rgba(119, 84, 191, 0.14);
   border-radius: 28px;
-  box-shadow: 0 18px 45px rgba(49, 62, 91, 0.08);
+  box-shadow: 0 18px 45px rgba(57, 39, 96, 0.08);
 }
 
 .hero-copy,
@@ -61,15 +61,15 @@ select {
 
 .player-panel {
   background:
-    radial-gradient(circle at top right, #fff1af 0%, transparent 35%),
-    linear-gradient(180deg, #ffffff 0%, #f9f5ff 100%);
+    radial-gradient(circle at top right, #edd6ff 0%, transparent 35%),
+    linear-gradient(180deg, #ffffff 0%, #f7f2ff 100%);
 }
 
 .player-badge {
   display: inline-block;
   padding: 8px 14px;
   border-radius: 999px;
-  background: #1d2433;
+  background: #5b3fa3;
   color: #fff;
   font-weight: 700;
   margin-bottom: 18px;
@@ -78,6 +78,10 @@ select {
 .player-stats {
   display: grid;
   gap: 18px;
+}
+
+.stat-pill {
+  border-radius: 18px;
 }
 
 .hero {
@@ -94,7 +98,7 @@ select {
 
 .back-button {
   margin-bottom: 12px !important;
-  color: #8b4c1e !important;
+  color: #6b46c1 !important;
 }
 
 .progress-strip {
@@ -107,8 +111,8 @@ select {
 .progress-card {
   padding: 18px 20px;
   border-radius: 22px !important;
-  background: linear-gradient(180deg, #fff7e8 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(198, 107, 29, 0.14);
+  background: linear-gradient(180deg, #f6efff 0%, #ffffff 100%) !important;
+  border: 1px solid rgba(119, 84, 191, 0.14);
 }
 
 .progress-card strong,
@@ -119,7 +123,7 @@ select {
 
 .progress-label {
   display: block;
-  color: #6c7690;
+  color: #70678d;
   font-size: 0.9rem;
   margin-bottom: 6px;
 }
@@ -129,7 +133,7 @@ select {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.78rem;
-  color: #c66b1d;
+  color: #7a47d1;
   font-weight: 700;
   margin: 0 0 8px;
 }
@@ -147,7 +151,7 @@ select {
 .hero-text,
 .story-summary {
   max-width: 60ch;
-  color: #4f5b73;
+  color: #5f547f;
 }
 
 .story-picker {
@@ -168,14 +172,14 @@ select {
   margin: 0 auto 24px;
   padding: 24px;
   background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(198, 107, 29, 0.14);
+  border: 1px solid rgba(119, 84, 191, 0.14);
   border-radius: 28px;
-  box-shadow: 0 18px 45px rgba(49, 62, 91, 0.08);
+  box-shadow: 0 18px 45px rgba(57, 39, 96, 0.08);
 }
 
 .pokemon-subtitle {
   margin: 0;
-  color: #4f5b73;
+  color: #5f547f;
 }
 
 .pokemon-summary {
@@ -188,8 +192,8 @@ select {
 .pokemon-summary-card {
   padding: 18px 20px;
   border-radius: 22px !important;
-  background: linear-gradient(180deg, #eef8ff 0%, #ffffff 100%) !important;
-  border: 1px solid rgba(79, 124, 196, 0.14);
+  background: linear-gradient(180deg, #f1ecff 0%, #ffffff 100%) !important;
+  border: 1px solid rgba(119, 84, 191, 0.14);
 }
 
 .pokemon-grid {
@@ -201,18 +205,18 @@ select {
 .pokemon-card {
   padding: 18px;
   border-radius: 24px;
-  border: 1px solid rgba(29, 36, 51, 0.08);
-  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid rgba(57, 39, 96, 0.08);
+  background: linear-gradient(180deg, #ffffff 0%, #f8f4ff 100%);
   text-align: center;
 }
 
 .pokemon-open {
-  box-shadow: 0 14px 30px rgba(49, 62, 91, 0.1);
+  box-shadow: 0 14px 30px rgba(57, 39, 96, 0.1);
 }
 
 .pokemon-locked {
-  background: linear-gradient(180deg, #f1f3f8 0%, #ebeff8 100%);
-  color: #6a7388;
+  background: linear-gradient(180deg, #f1eef8 0%, #e9e4f4 100%);
+  color: #786f92;
 }
 
 .pokemon-image-wrap {
@@ -222,8 +226,8 @@ select {
   margin-bottom: 10px;
   border-radius: 20px;
   background:
-    radial-gradient(circle at top, #fff4bf 0%, transparent 40%),
-    linear-gradient(180deg, #f5f9ff 0%, #edf2ff 100%);
+    radial-gradient(circle at top, #efd8ff 0%, transparent 40%),
+    linear-gradient(180deg, #f8f3ff 0%, #efe9ff 100%);
 }
 
 .pokemon-image {
@@ -238,7 +242,7 @@ select {
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #c5cede 0%, #98a4ba 100%);
+  background: linear-gradient(180deg, #c9b6f4 0%, #8c74ca 100%);
   color: white;
   font-size: 2rem;
   font-weight: 800;
@@ -252,7 +256,7 @@ select {
 .pokemon-card p,
 .pokemon-message {
   margin: 0;
-  color: #4f5b73;
+  color: #5f547f;
 }
 
 .pokemon-message {
@@ -273,8 +277,8 @@ select {
   border-radius: 28px;
   margin-bottom: 20px;
   background:
-    radial-gradient(circle at top left, rgba(255, 241, 175, 0.55) 0%, transparent 25%),
-    linear-gradient(180deg, #fffdfa 0%, #f4f8ff 100%);
+    radial-gradient(circle at top left, rgba(217, 204, 255, 0.55) 0%, transparent 25%),
+    linear-gradient(180deg, #fdfaff 0%, #f2edff 100%);
 }
 
 .pixi-map-shell canvas {
@@ -304,7 +308,7 @@ select {
   text-align: left;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 12px 28px rgba(49, 62, 91, 0.1);
+  box-shadow: 0 12px 28px rgba(57, 39, 96, 0.1);
 }
 
 .level-list-card:hover {
@@ -313,14 +317,14 @@ select {
 
 .level-open {
   background:
-    radial-gradient(circle at top right, #fff0b4 0%, transparent 32%),
-    linear-gradient(180deg, #fffef7 0%, #ffffff 100%);
+    radial-gradient(circle at top right, #ebddff 0%, transparent 32%),
+    linear-gradient(180deg, #fcf9ff 0%, #ffffff 100%);
 }
 
 .level-completed {
   background:
-    radial-gradient(circle at top right, #ccf6de 0%, transparent 32%),
-    linear-gradient(180deg, #f5fff8 0%, #ffffff 100%);
+    radial-gradient(circle at top right, #d9caff 0%, transparent 32%),
+    linear-gradient(180deg, #f7f2ff 0%, #ffffff 100%);
 }
 
 .level-locked {
@@ -336,7 +340,7 @@ select {
   width: 74px;
   height: 74px;
   border-radius: 50%;
-  background: linear-gradient(180deg, #ffcc57 0%, #f0902c 100%);
+  background: linear-gradient(180deg, #b792ff 0%, #7a47d1 100%);
   color: #fff;
   font-size: 1.7rem;
   font-weight: 800;
@@ -354,7 +358,7 @@ select {
 
 .level-list-content p {
   margin: 0 0 12px;
-  color: #4f5b73;
+  color: #5f547f;
 }
 
 .level-meta {
@@ -375,8 +379,8 @@ select {
 }
 
 .status-available {
-  background: #e6f3ff;
-  color: #1b5f91;
+  background: #efe8ff;
+  color: #6540b5;
 }
 
 .status-locked {
@@ -385,8 +389,8 @@ select {
 }
 
 .status-completed {
-  background: #e8f9ee;
-  color: #26724a;
+  background: #eadfff;
+  color: #6b39c2;
 }
 
 .tabs-shell {
@@ -394,9 +398,9 @@ select {
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(198, 107, 29, 0.14);
+  border: 1px solid rgba(119, 84, 191, 0.14);
   border-radius: 24px;
-  box-shadow: 0 18px 45px rgba(49, 62, 91, 0.08);
+  box-shadow: 0 18px 45px rgba(57, 39, 96, 0.08);
   overflow: hidden;
 }
 
@@ -417,13 +421,13 @@ select {
   min-width: 210px;
   padding: 16px 18px;
   border-radius: 20px;
-  background: linear-gradient(180deg, #fff5d8 0%, #fff 100%);
-  border: 1px solid rgba(198, 107, 29, 0.18);
+  background: linear-gradient(180deg, #f4ecff 0%, #fff 100%);
+  border: 1px solid rgba(119, 84, 191, 0.18);
 }
 
 .stars-row {
   display: block;
-  color: #f0a11f;
+  color: #8a58e0;
   letter-spacing: 0.12em;
   font-size: 1.1rem;
   margin-top: 6px;
@@ -434,9 +438,9 @@ select {
 }
 
 .material-tabs {
-  border-top: 1px solid rgba(198, 107, 29, 0.14);
-  border-bottom: 1px solid rgba(198, 107, 29, 0.14);
-  background: rgba(255, 248, 232, 0.7);
+  border-top: 1px solid rgba(119, 84, 191, 0.14);
+  border-bottom: 1px solid rgba(119, 84, 191, 0.14);
+  background: rgba(245, 239, 255, 0.7);
 }
 
 .tab-panel {
@@ -454,8 +458,8 @@ select {
   margin: 0 0 24px;
   padding: 20px;
   border-radius: 22px;
-  background: linear-gradient(180deg, #fffdf6 0%, #fff4de 100%);
-  border: 1px solid rgba(198, 107, 29, 0.18);
+  background: linear-gradient(180deg, #fdfaff 0%, #f2ebff 100%);
+  border: 1px solid rgba(119, 84, 191, 0.18);
   text-align: center;
 }
 
@@ -467,11 +471,11 @@ select {
 
 .story-illustration figcaption {
   font-size: 0.9rem;
-  color: #5c667e;
+  color: #675f80;
 }
 
 .story-illustration a {
-  color: #b45d18;
+  color: #6b46c1;
   font-weight: 700;
   text-decoration: none;
 }
@@ -502,8 +506,8 @@ select {
 .lesson-chip {
   padding: 10px 14px;
   border-radius: 999px;
-  background: #eef3ff;
-  color: #33415f;
+  background: #f0eaff;
+  color: #4f3f78;
   font-weight: 700;
 }
 
@@ -516,13 +520,13 @@ select {
 .question-card {
   padding: 16px;
   border-radius: 18px;
-  background: #f8faff;
+  background: #faf7ff;
   border: 2px solid transparent;
 }
 
 .question-correct {
-  border-color: #87d3a3;
-  background: #effbf3;
+  border-color: #b69bf3;
+  background: #f3edff;
 }
 
 .question-wrong {
@@ -550,7 +554,7 @@ select {
   align-items: center;
   gap: 10px;
   background: white;
-  border: 2px solid #e5ebfb;
+  border: 2px solid #e6dcff;
   border-radius: 16px;
   padding: 12px 14px;
   font-size: 1rem;
@@ -574,7 +578,7 @@ select {
 }
 
 .matching-row select {
-  border: 2px solid #d6ddf4;
+  border: 2px solid #d8cbff;
   padding: 12px 14px;
   background: #fff;
 }
@@ -585,7 +589,7 @@ select {
 }
 
 .score-box {
-  background: #1d2433;
+  background: #5b3fa3;
   color: white;
   padding: 10px 16px;
   border-radius: 999px;
@@ -593,8 +597,8 @@ select {
 }
 
 .score-box-muted {
-  background: #dfe8ff;
-  color: #22304c;
+  background: #ece4ff;
+  color: #4c3b78;
 }
 
 .feedback {
@@ -620,21 +624,33 @@ select {
 }
 
 .primary-button {
-  background-color: #f08c2e !important;
+  background-color: #7a47d1 !important;
   color: #fff !important;
 }
 
 .secondary-button {
-  border-color: #c6d4f7 !important;
-  color: #22304c !important;
-  background: #e8eefc !important;
+  border-color: #d8cbff !important;
+  color: #4c3b78 !important;
+  background: #f1ebff !important;
 }
 
 .ghost-button {
-  color: #8b4c1e !important;
+  color: #6b46c1 !important;
+}
+
+.mobile-bottom-bar {
+  display: none;
+}
+
+.mobile-panel {
+  width: 100%;
 }
 
 @media (max-width: 900px) {
+  body {
+    padding-bottom: 92px;
+  }
+
   .home-hero,
   .progress-strip,
   .hero,
@@ -658,7 +674,82 @@ select {
   }
 
   .app-shell {
+    padding: 14px 14px 0;
+  }
+
+  .mobile-app-hero {
+    grid-template-columns: minmax(0, 1.45fr) minmax(140px, 0.9fr);
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: stretch;
+  }
+
+  .mobile-app-hero .hero-copy,
+  .mobile-app-hero .player-panel {
+    border-radius: 22px;
     padding: 16px;
+  }
+
+  .mobile-app-hero .hero-copy {
+    min-height: auto;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(177, 138, 255, 0.26) 0%, transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 242, 255, 0.98) 100%);
+  }
+
+  .mobile-app-hero .player-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background:
+      radial-gradient(circle at top right, rgba(184, 148, 255, 0.24) 0%, transparent 34%),
+      linear-gradient(180deg, #ffffff 0%, #f7f2ff 100%);
+  }
+
+  .mobile-app-hero h1 {
+    font-size: 1.45rem;
+    line-height: 1.05;
+    margin-bottom: 0;
+    max-width: 7ch;
+    position: relative;
+    z-index: 1;
+  }
+
+  .mobile-app-hero .eyebrow {
+    margin-bottom: 6px;
+    font-size: 0.72rem;
+  }
+
+  .mobile-app-hero .hero-orb {
+    position: absolute;
+    right: -12px;
+    bottom: -18px;
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, #e9dcff 0%, #b58cff 45%, #6b46c1 100%);
+    box-shadow: inset 0 -10px 0 rgba(71, 33, 138, 0.2);
+  }
+
+  .mobile-app-hero .hero-text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.42;
+  }
+
+  .mobile-app-hero .player-badge {
+    margin-bottom: 10px;
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    align-self: flex-start;
   }
 
   .hero-copy,
@@ -687,6 +778,39 @@ select {
     grid-template-columns: 1fr;
   }
 
+  .mobile-app-hero .player-stats {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .mobile-app-hero .player-stats .progress-label {
+    margin-bottom: 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
+  }
+
+  .mobile-app-hero .player-stats strong {
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .mobile-app-hero .stat-pill {
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(119, 84, 191, 0.1);
+  }
+
+  .mobile-app-hero .stat-pill-primary {
+    background: linear-gradient(180deg, #f2eaff 0%, #ffffff 100%);
+  }
+
+  .progress-strip.mobile-panel,
+  .pokemon-rewards.mobile-panel,
+  .world-map.mobile-panel {
+    margin-bottom: 0;
+    animation: mobile-panel-in 180ms ease-out;
+  }
+
   .level-list-card {
     grid-template-columns: 1fr;
     padding: 16px;
@@ -707,5 +831,71 @@ select {
 
   .two-columns {
     grid-template-columns: 1fr;
+  }
+
+  .tabs-shell {
+    border-radius: 24px 24px 0 0;
+    margin-bottom: 0;
+  }
+
+  .hero-lesson {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .hero-lesson .hero-text {
+    margin-bottom: 0;
+  }
+
+  .story-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .question-card {
+    padding: 14px;
+  }
+
+  .mobile-bottom-bar {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid rgba(119, 84, 191, 0.14);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 16px 34px rgba(57, 39, 96, 0.18);
+  }
+
+  .mobile-bottom-bar button {
+    border: none;
+    border-radius: 16px;
+    padding: 12px 10px;
+    background: linear-gradient(180deg, #f6efff 0%, #ffffff 100%);
+    color: #5d429d;
+    font-weight: 800;
+  }
+
+  .mobile-bottom-bar .mobile-bottom-active {
+    background: linear-gradient(180deg, #8d63e6 0%, #6b46c1 100%);
+    color: #fff;
+  }
+}
+
+@keyframes mobile-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

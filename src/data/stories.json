@@ -310,5 +310,110 @@
         "explanation": "La explicación más aceptada habla de egipcios preparados, herramientas, organización y trabajo en equipo."
       }
     ]
+  },
+  {
+    "id": "de-donde-viene-el-oro",
+    "title": "¿De dónde viene el oro?",
+    "category": "Texto informativo",
+    "summary": "Un texto para descubrir cómo nació el oro en el espacio, cómo llegó a la Tierra y por qué no hay tanto como parece.",
+    "illustration": {
+      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjVpTq8qb10OE2zPk88EwKnSVpX8p8xgdhwg&s",
+      "alt": "Ilustración del oro y el espacio",
+      "caption": "Ilustración para el texto sobre el origen del oro",
+      "sourceLabel": "Imagen de referencia",
+      "sourceUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjVpTq8qb10OE2zPk88EwKnSVpX8p8xgdhwg&s"
+    },
+    "content": [
+      "Muchas personas piensan que el oro siempre estuvo en la Tierra, pero su historia empezó mucho antes de que existiera nuestro planeta. Hace muchísimo tiempo, en el espacio, dos estrellas de neutrones chocaron con una fuerza enorme. En esas colisiones tan poderosas se formaron elementos muy especiales, y uno de ellos fue el oro.",
+      "Después de aquel choque, trocitos de materia salieron despedidos por el universo como si fueran polvo brillante. Con el paso de millones de años, ese material se mezcló con nubes gigantes de gas y polvo. De una de esas nubes nacieron el Sol, la Tierra y los demás planetas de nuestro sistema solar.",
+      "Cuando la Tierra todavía era muy joven y estaba muy caliente, parte del oro quedó atrapada dentro de sus rocas. Más tarde, los movimientos del suelo, los volcanes y el agua fueron empujando pequeñas cantidades hacia lugares más cercanos a la superficie. Por eso, muchísimo tiempo después, las personas pudieron encontrar pepitas, vetas de oro y pequeños restos en ríos y montañas.",
+      "Aunque el oro parece algo muy famoso y valioso, en realidad no hay tanto. Si juntáramos todo el oro que las personas han extraído en toda la historia, ocuparía más o menos el espacio de unas cuatro piscinas grandes de competición. Parece mucho, pero para todo el planeta es bastante poco.",
+      "Cada anillo, collar o moneda de oro guarda una historia increíble: nació en una colisión de estrellas de neutrones, viajó por el espacio, formó parte de la Tierra y esperó millones de años hasta llegar a manos humanas. Pensar en eso nos recuerda que a veces las cosas más pequeñas tienen un viaje gigantesco."
+    ],
+    "questions": [
+      {
+        "id": "o1",
+        "type": "multiple_choice",
+        "prompt": "¿Dónde se formó el oro del que habla el texto?",
+        "options": ["En el fondo del mar", "En colisiones de estrellas de neutrones", "Dentro de los árboles"],
+        "correctAnswer": "En colisiones de estrellas de neutrones",
+        "explanation": "El texto explica que el oro se formó cuando chocaron dos estrellas de neutrones."
+      },
+      {
+        "id": "o2",
+        "type": "true_false",
+        "prompt": "El texto dice que el oro nació primero en la Tierra.",
+        "correctAnswer": "Falso",
+        "explanation": "El oro se formó antes de que existiera la Tierra, en el espacio."
+      },
+      {
+        "id": "o3",
+        "type": "multiple_choice",
+        "prompt": "¿Qué pasó con el material después de la colisión?",
+        "options": ["Se convirtió en lluvia", "Salió despedido por el universo", "Desapareció para siempre"],
+        "correctAnswer": "Salió despedido por el universo",
+        "explanation": "El texto dice que trocitos de materia salieron despedidos por el universo."
+      },
+      {
+        "id": "o4",
+        "type": "short_text",
+        "prompt": "Escribe un lugar de la Tierra donde las personas pudieron encontrar oro.",
+        "acceptedAnswers": ["ríos", "rios", "montañas", "rocas"],
+        "explanation": "El texto menciona rocas, ríos y montañas."
+      },
+      {
+        "id": "o5",
+        "type": "true_false",
+        "prompt": "Los volcanes y los movimientos del suelo ayudaron a acercar parte del oro a la superficie.",
+        "correctAnswer": "Verdadero",
+        "explanation": "El texto explica que esos procesos ayudaron a mover pequeñas cantidades de oro."
+      },
+      {
+        "id": "o6",
+        "type": "matching",
+        "prompt": "Une cada elemento con su idea correcta.",
+        "pairs": [
+          { "left": "Estrellas de neutrones", "right": "Chocaron en el espacio" },
+          { "left": "Oro", "right": "Se formó en una colisión" },
+          { "left": "Tierra", "right": "Nació de una nube de gas y polvo" }
+        ],
+        "rightOptions": ["Se formó en una colisión", "Nació de una nube de gas y polvo", "Chocaron en el espacio"],
+        "explanation": "Estrellas de neutrones - Chocaron en el espacio, Oro - Se formó en una colisión, Tierra - Nació de una nube de gas y polvo."
+      },
+      {
+        "id": "o7",
+        "type": "multiple_choice",
+        "prompt": "¿Qué comparación usa el texto para explicar cuánto oro se ha extraído?",
+        "options": ["Un castillo lleno", "Unas cuatro piscinas grandes de competición", "Una montaña entera"],
+        "correctAnswer": "Unas cuatro piscinas grandes de competición",
+        "explanation": "El texto usa la comparación de unas cuatro piscinas grandes de competición."
+      },
+      {
+        "id": "o8",
+        "type": "short_text",
+        "prompt": "¿Con qué se mezcló el material del oro antes de formarse la Tierra?",
+        "acceptedAnswers": ["gas y polvo", "nubes de gas y polvo", "una nube de gas y polvo", "nubes gigantes de gas y polvo"],
+        "explanation": "El material se mezcló con nubes gigantes de gas y polvo."
+      },
+      {
+        "id": "o9",
+        "type": "true_false",
+        "prompt": "Según el texto, hay muchísimo oro en la Tierra y sobra por todas partes.",
+        "correctAnswer": "Falso",
+        "explanation": "El texto dice que, aunque parece mucho, en realidad no hay tanto."
+      },
+      {
+        "id": "o10",
+        "type": "multiple_choice",
+        "prompt": "¿Qué idea final quiere transmitir el texto?",
+        "options": [
+          "Que el oro no tiene historia",
+          "Que las cosas pequeñas pueden tener un viaje gigantesco",
+          "Que el oro aparece de un día para otro"
+        ],
+        "correctAnswer": "Que las cosas pequeñas pueden tener un viaje gigantesco",
+        "explanation": "El texto termina recordando que algunas cosas pequeñas tienen un viaje enorme."
+      }
+    ]
   }
 ]

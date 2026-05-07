@@ -43,12 +43,7 @@ function drawPath(graphics, levels) {
 }
 
 function drawLevelBubble(graphics, level) {
-  const baseColor =
-    level.status === 'locked'
-      ? 0xa4aec2
-      : level.isCompleted
-        ? 0x6fd28d
-        : 0xf29b2e;
+  const baseColor = level.isCompleted ? 0x6fd28d : 0xf29b2e;
 
   graphics.clear();
   graphics.beginFill(baseColor);
@@ -132,19 +127,10 @@ export default function WorldMapPixi({ worldProgress, unlockedPokemon }) {
             />
 
             <Text
-              text={
-                level.status === 'locked'
-                  ? 'Bloqueado'
-                  : level.isCompleted
-                    ? 'Completado'
-                    : 'Disponible'
-              }
+              text={level.isCompleted ? 'Completado' : 'Disponible'}
               anchor={0.5}
               y={102}
-              style={makeTextStyle(
-                15,
-                level.status === 'locked' ? '#6a7388' : '#c66b1d',
-              )}
+              style={makeTextStyle(15, '#c66b1d')}
             />
           </Container>
         ))}

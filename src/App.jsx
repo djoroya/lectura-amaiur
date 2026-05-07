@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
@@ -17,6 +17,29 @@ const emptyAnswers = {};
 const progressStorageKey = 'lectura-amaiur-progress';
 const pokemonCacheKey = 'lectura-amaiur-pokemon-cache';
 const pokemonRewardIds = [25, 1, 4, 7, 133, 39, 52, 54];
+
+function useIsMobile(breakpoint = 900) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth <= breakpoint;
+  });
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const update = (event) => setIsMobile(event.matches);
+
+    setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener('change', update);
+
+    return () => {
+      mediaQuery.removeEventListener('change', update);
+    };
+  }, [breakpoint]);
+
+  return isMobile;
+}
 
 function normalizeText(value) {
   return String(value ?? '')
@@ -144,26 +167,23 @@ function formatBestLabel(progressEntry, totalQuestions) {
   return `${progressEntry.bestScore}/${totalQuestions}`;
 }
 
-function getStoryStatus(index, progressByStory) {
-  if (index === 0) return 'available';
-
-  const previousStory = stories[index - 1];
-  const previousProgress = progressByStory[previousStory.id];
-
-  if (previousProgress?.bestScore > 0) return 'available';
-  return 'locked';
-}
-
 function App() {
+  const isMobile = useIsMobile();
   const [screen, setScreen] = useState('home');
   const [selectedStoryId, setSelectedStoryId] = useState(stories[0]?.id ?? null);
   const [answersByStory, setAnswersByStory] = useState({});
   const [submittedStories, setSubmittedStories] = useState({});
   const [activeTab, setActiveTab] = useState(0);
+  const [mobileHomeSection, setMobileHomeSection] = useState('stories');
   const [progressByStory, setProgressByStory] = useState(loadStoredProgress);
   const [pokemonCache, setPokemonCache] = useState(loadPokemonCache);
   const [pokemonLoading, setPokemonLoading] = useState(false);
   const [pokemonError, setPokemonError] = useState('');
+  const homeTopRef = useRef(null);
+  const pokemonSectionRef = useRef(null);
+  const storiesSectionRef = useRef(null);
+  const lessonTopRef = useRef(null);
+  const lessonTabsRef = useRef(null);
 
   useEffect(() => {
     saveStoredProgress(progressByStory);
@@ -186,15 +206,14 @@ function App() {
   }, [currentAnswers, selectedStory]);
 
   const worldProgress = useMemo(() => {
-    return stories.map((story, index) => {
+    return stories.map((story) => {
       const progress = progressByStory[story.id];
-      const status = getStoryStatus(index, progressByStory);
       const isCompleted = (progress?.bestScore ?? 0) > 0;
 
       return {
         story,
         progress,
-        status,
+        status: 'available',
         isCompleted,
         stars: progress?.bestStars ?? 0,
       };
@@ -360,6 +379,17 @@ function App() {
     }
   }
 
+  function scrollToRef(ref) {
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function openLessonTab(tabIndex) {
+    setActiveTab(tabIndex);
+    window.requestAnimationFrame(() => {
+      scrollToRef(lessonTabsRef);
+    });
+  }
+
   if (!selectedStory) {
     return <main className="app-shell">No hay cuentos cargados todavía.</main>;
   }
@@ -367,25 +397,28 @@ function App() {
   if (screen === 'home') {
     return (
       <main className="app-shell">
-        <section className="home-hero">
+        <section ref={homeTopRef} className={`home-hero ${isMobile ? 'mobile-app-hero' : ''}`}>
           <div className="hero-copy">
             <p className="eyebrow">Mapa de aventura</p>
             <h1>Lectura Amaiur</h1>
-            <p className="hero-text">
-              Explora cuentos, gana estrellas y desbloquea nuevos retos como en
-              un videojuego.
-            </p>
+            {isMobile ? <div className="hero-orb" aria-hidden="true" /> : null}
+            {!isMobile ? (
+              <p className="hero-text">
+                Explora cuentos, gana estrellas y desbloquea nuevos retos como en
+                un videojuego.
+              </p>
+            ) : null}
           </div>
 
           <div className="player-panel">
-            <span className="player-badge">Aventurera lectora</span>
+            {isMobile ? <span className="player-badge">Nivel lector</span> : <span className="player-badge">Aventurera lectora</span>}
             <div className="player-stats">
-              <div>
-                <span className="progress-label">Estrellas</span>
+              <div className="stat-pill stat-pill-primary">
+                <span className="progress-label">★ Estrellas</span>
                 <strong>{profileStats.totalStars}</strong>
               </div>
-              <div>
-                <span className="progress-label">Cuentos superados</span>
+              <div className="stat-pill">
+                <span className="progress-label">✓ Cuentos</span>
                 <strong>
                   {profileStats.completed}/{stories.length}
                 </strong>
@@ -394,155 +427,196 @@ function App() {
           </div>
         </section>
 
-        <section className="progress-strip">
-          <Paper className="progress-card" elevation={0}>
-            <span className="progress-label">Intentos totales</span>
-            <strong>{profileStats.attempts}</strong>
-          </Paper>
-          <Paper className="progress-card" elevation={0}>
-            <span className="progress-label">Plenos</span>
-            <strong>{profileStats.perfect}</strong>
-          </Paper>
-          <Paper className="progress-card" elevation={0}>
-            <span className="progress-label">Nivel actual</span>
-            <strong>{profileStats.completed + 1}</strong>
-          </Paper>
-          <Paper className="progress-card" elevation={0}>
-            <span className="progress-label">Ruta activa</span>
-            <strong>Biblioteca</strong>
-          </Paper>
-        </section>
-
-        <section className="pokemon-rewards">
-          <div className="map-header">
-            <div>
-              <p className="eyebrow">Recompensas Pokémon</p>
-              <h2>Tu equipo de lectura</h2>
-              <p className="pokemon-subtitle">
-                Se desbloquea un Pokémon nuevo cada 2 estrellas.
-              </p>
-            </div>
-          </div>
-
-          <div className="pokemon-summary">
-            <Paper className="pokemon-summary-card" elevation={0}>
-              <span className="progress-label">Pokémon desbloqueados</span>
-              <strong>
-                {unlockedPokemon.length}/{pokemonRewardIds.length}
-              </strong>
+        {(!isMobile || mobileHomeSection === 'summary') && (
+          <section className="progress-strip mobile-panel">
+            <Paper className="progress-card" elevation={0}>
+              <span className="progress-label">Intentos totales</span>
+              <strong>{profileStats.attempts}</strong>
             </Paper>
-            <Paper className="pokemon-summary-card" elevation={0}>
-              <span className="progress-label">Próximo desbloqueo</span>
-              <strong>
-                {nextPokemonTarget
-                  ? `${nextPokemonTarget.remainingStars} estrella(s)`
-                  : 'Todos conseguidos'}
-              </strong>
+            <Paper className="progress-card" elevation={0}>
+              <span className="progress-label">Plenos</span>
+              <strong>{profileStats.perfect}</strong>
             </Paper>
-          </div>
+            <Paper className="progress-card" elevation={0}>
+              <span className="progress-label">Nivel actual</span>
+              <strong>{profileStats.completed + 1}</strong>
+            </Paper>
+            <Paper className="progress-card" elevation={0}>
+              <span className="progress-label">Ruta activa</span>
+              <strong>Biblioteca</strong>
+            </Paper>
+          </section>
+        )}
 
-          {pokemonError ? <p className="pokemon-message">{pokemonError}</p> : null}
-          {pokemonLoading ? (
-            <p className="pokemon-message">Cargando recompensas Pokémon...</p>
-          ) : null}
-
-          <div className="pokemon-grid">
-            {pokemonRewardIds.map((id, index) => {
-              const isUnlocked = index < unlockedPokemonCount;
-              const reward = pokemonCache[id];
-
-              return (
-                <article
-                  key={id}
-                  className={`pokemon-card ${isUnlocked ? 'pokemon-open' : 'pokemon-locked'}`}
-                >
-                  <div className="pokemon-image-wrap">
-                    {isUnlocked && reward?.image ? (
-                      <img src={reward.image} alt={reward.name} className="pokemon-image" />
-                    ) : (
-                      <div className="pokemon-placeholder">?</div>
-                    )}
-                  </div>
-
-                  <h3>{isUnlocked ? reward?.name ?? `Pokémon #${id}` : 'Pokémon oculto'}</h3>
-                  <p>
-                    {isUnlocked
-                      ? reward?.description ?? 'Recompensa de lectura desbloqueada.'
-                      : `Consigue ${(index + 1) * 2} estrellas para desbloquearlo.`}
-                  </p>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-
-        <section className="world-map">
-          <div className="map-header">
-            <div>
-              <p className="eyebrow">Camino de cuentos</p>
-              <h2>Elige tu siguiente nivel</h2>
+        {(!isMobile || mobileHomeSection === 'rewards') && (
+          <section ref={pokemonSectionRef} className="pokemon-rewards mobile-panel">
+            <div className="map-header">
+              <div>
+                <p className="eyebrow">Recompensas Pokémon</p>
+                <h2>Tu equipo de lectura</h2>
+                <p className="pokemon-subtitle">
+                  Se desbloquea un Pokémon nuevo cada 2 estrellas.
+                </p>
+              </div>
             </div>
-            <Button className="ghost-button" variant="text" onClick={resetAllProgress}>
-              Reiniciar progreso
-            </Button>
-          </div>
 
-          <div className="desktop-map">
-            <WorldMapPixi
-              worldProgress={worldProgress}
-              unlockedPokemon={unlockedPokemon}
-              onOpenStory={openStory}
-            />
-          </div>
+            <div className="pokemon-summary">
+              <Paper className="pokemon-summary-card" elevation={0}>
+                <span className="progress-label">Pokémon desbloqueados</span>
+                <strong>
+                  {unlockedPokemon.length}/{pokemonRewardIds.length}
+                </strong>
+              </Paper>
+              <Paper className="pokemon-summary-card" elevation={0}>
+                <span className="progress-label">Próximo desbloqueo</span>
+                <strong>
+                  {nextPokemonTarget
+                    ? `${nextPokemonTarget.remainingStars} estrella(s)`
+                    : 'Todos conseguidos'}
+                </strong>
+              </Paper>
+            </div>
 
-          <div className="level-list">
-            {worldProgress.map((entry, index) => {
-              const isLocked = entry.status === 'locked';
+            {pokemonError ? <p className="pokemon-message">{pokemonError}</p> : null}
+            {pokemonLoading ? (
+              <p className="pokemon-message">Cargando recompensas Pokémon...</p>
+            ) : null}
 
-              return (
-                <button
-                  key={entry.story.id}
-                  type="button"
-                  className={`level-list-card ${
-                    entry.isCompleted ? 'level-completed' : 'level-open'
-                  } ${isLocked ? 'level-locked' : ''}`}
-                  onClick={() => !isLocked && openStory(entry.story.id)}
-                  disabled={isLocked}
-                >
-                  <span className="level-list-number">{index + 1}</span>
-                  <div className="level-list-content">
-                    <span className="story-tag">{entry.story.category}</span>
-                    <h3>{entry.story.title}</h3>
-                    <p>{entry.story.summary}</p>
-                    <div className="level-meta">
-                      <span>
-                        Mejor: {formatBestLabel(entry.progress, entry.story.questions.length)}
-                      </span>
-                      <span className="stars-row">
-                        {'★'.repeat(entry.stars)}
-                        {'☆'.repeat(3 - entry.stars)}
+            <div className="pokemon-grid">
+              {pokemonRewardIds.map((id, index) => {
+                const isUnlocked = index < unlockedPokemonCount;
+                const reward = pokemonCache[id];
+
+                return (
+                  <article
+                    key={id}
+                    className={`pokemon-card ${isUnlocked ? 'pokemon-open' : 'pokemon-locked'}`}
+                  >
+                    <div className="pokemon-image-wrap">
+                      {isUnlocked && reward?.image ? (
+                        <img src={reward.image} alt={reward.name} className="pokemon-image" />
+                      ) : (
+                        <div className="pokemon-placeholder">?</div>
+                      )}
+                    </div>
+
+                    <h3>{isUnlocked ? reward?.name ?? `Pokémon #${id}` : 'Pokémon oculto'}</h3>
+                    <p>
+                      {isUnlocked
+                        ? reward?.description ?? 'Recompensa de lectura desbloqueada.'
+                        : `Consigue ${(index + 1) * 2} estrellas para desbloquearlo.`}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {(!isMobile || mobileHomeSection === 'stories') && (
+          <section ref={storiesSectionRef} className="world-map mobile-panel">
+            <div className="map-header">
+              <div>
+                <p className="eyebrow">Camino de cuentos</p>
+                <h2>Elige tu siguiente nivel</h2>
+              </div>
+              <Button className="ghost-button" variant="text" onClick={resetAllProgress}>
+                Reiniciar progreso
+              </Button>
+            </div>
+
+            <div className="desktop-map">
+              <WorldMapPixi
+                worldProgress={worldProgress}
+                unlockedPokemon={unlockedPokemon}
+                onOpenStory={openStory}
+              />
+            </div>
+
+            <div className="level-list">
+              {worldProgress.map((entry, index) => {
+                return (
+                  <button
+                    key={entry.story.id}
+                    type="button"
+                    className={`level-list-card ${
+                      entry.isCompleted ? 'level-completed' : 'level-open'
+                    }`}
+                    onClick={() => openStory(entry.story.id)}
+                  >
+                    <span className="level-list-number">{index + 1}</span>
+                    <div className="level-list-content">
+                      <span className="story-tag">{entry.story.category}</span>
+                      <h3>{entry.story.title}</h3>
+                      <p>{entry.story.summary}</p>
+                      <div className="level-meta">
+                        <span>
+                          Mejor: {formatBestLabel(entry.progress, entry.story.questions.length)}
+                        </span>
+                        <span className="stars-row">
+                          {'★'.repeat(entry.stars)}
+                          {'☆'.repeat(3 - entry.stars)}
+                        </span>
+                      </div>
+                      <span className={`status-pill status-${entry.status}`}>
+                        {entry.isCompleted ? 'Completado' : 'Disponible'}
                       </span>
                     </div>
-                    <span className={`status-pill status-${entry.status}`}>
-                      {isLocked
-                        ? 'Bloqueado'
-                        : entry.isCompleted
-                          ? 'Completado'
-                          : 'Disponible'}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </section>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <nav className="mobile-bottom-bar" aria-label="Navegación rápida">
+          <button
+            type="button"
+            className={mobileHomeSection === 'summary' ? 'mobile-bottom-active' : ''}
+            onClick={() => {
+              if (isMobile) {
+                setMobileHomeSection('summary');
+                return;
+              }
+              scrollToRef(homeTopRef);
+            }}
+          >
+            Resumen
+          </button>
+          <button
+            type="button"
+            className={mobileHomeSection === 'rewards' ? 'mobile-bottom-active' : ''}
+            onClick={() => {
+              if (isMobile) {
+                setMobileHomeSection('rewards');
+                return;
+              }
+              scrollToRef(pokemonSectionRef);
+            }}
+          >
+            Pokémon
+          </button>
+          <button
+            type="button"
+            className={mobileHomeSection === 'stories' ? 'mobile-bottom-active' : ''}
+            onClick={() => {
+              if (isMobile) {
+                setMobileHomeSection('stories');
+                return;
+              }
+              scrollToRef(storiesSectionRef);
+            }}
+          >
+            Cuentos
+          </button>
+        </nav>
       </main>
     );
   }
 
   return (
     <main className="app-shell">
-      <section className="hero hero-lesson">
+      <section ref={lessonTopRef} className="hero hero-lesson">
         <div>
           <Button className="back-button" variant="text" onClick={() => setScreen('home')}>
             Volver al mapa
@@ -563,18 +637,16 @@ function App() {
             label="Elegir cuento"
             onChange={(event) => setSelectedStoryId(event.target.value)}
           >
-            {worldProgress
-              .filter((entry, index) => getStoryStatus(index, progressByStory) !== 'locked')
-              .map((entry) => (
-                <MenuItem key={entry.story.id} value={entry.story.id}>
-                  {entry.story.title}
-                </MenuItem>
-              ))}
+            {worldProgress.map((entry) => (
+              <MenuItem key={entry.story.id} value={entry.story.id}>
+                {entry.story.title}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </section>
 
-      <Paper className="tabs-shell" elevation={0}>
+      <Paper ref={lessonTabsRef} className="tabs-shell" elevation={0}>
         <Box className="tabs-header">
           <div className="title-row">
             <div>
@@ -723,6 +795,26 @@ function App() {
           </Box>
         ) : null}
       </Paper>
+
+      <nav className="mobile-bottom-bar" aria-label="Navegación del cuento">
+        <button
+          type="button"
+          className={activeTab === 0 ? 'mobile-bottom-active' : ''}
+          onClick={() => openLessonTab(0)}
+        >
+          Cuento
+        </button>
+        <button
+          type="button"
+          className={activeTab === 1 ? 'mobile-bottom-active' : ''}
+          onClick={() => openLessonTab(1)}
+        >
+          Preguntas
+        </button>
+        <button type="button" onClick={() => setScreen('home')}>
+          Mapa
+        </button>
+      </nav>
     </main>
   );
 }
