@@ -415,5 +415,110 @@
         "explanation": "El texto termina recordando que algunas cosas pequeñas tienen un viaje enorme."
       }
     ]
+  },
+  {
+    "id": "por-que-el-oro-es-importante",
+    "title": "¿Por qué el oro es tan importante?",
+    "category": "Texto informativo",
+    "summary": "Un texto para entender por qué el oro ha llamado tanto la atención de las personas durante miles de años.",
+    "illustration": {
+      "src": "https://img2.huffingtonpost.es/files/image_720_480/uploads/2024/07/16/pepita-de-oro-4425.jpeg",
+      "alt": "Pepitas de oro brillando",
+      "caption": "Ilustración para el texto sobre la importancia del oro",
+      "sourceLabel": "Imagen de referencia",
+      "sourceUrl": "https://img2.huffingtonpost.es/files/image_720_480/uploads/2024/07/16/pepita-de-oro-4425.jpeg"
+    },
+    "content": [
+      "El oro ha sido importante para las personas desde hace miles de años. Cuando alguien veía una pepita o una joya de oro, le llamaban la atención su brillo amarillo y su aspecto especial. Como no es fácil de encontrar, muchas personas empezaron a pensar que era un material raro y valioso.",
+      "Además de ser bonito, el oro dura muchísimo tiempo. No se oxida con facilidad, no se estropea como otros metales y puede mantenerse brillante durante años y años. Por eso se usó para hacer coronas, monedas, collares y objetos que las familias guardaban como tesoros.",
+      "Otra razón de su importancia es que muchas personas se pusieron de acuerdo en darle valor. Durante mucho tiempo, el oro se utilizó para comerciar, ahorrar riqueza y mostrar poder. Un rey, una reina o un comerciante rico podían enseñar objetos de oro para decir sin palabras: esto es valioso.",
+      "Con el paso del tiempo, el oro siguió siendo importante, pero no solo por su belleza. También sirve para fabricar algunas piezas pequeñas en aparatos electrónicos porque conduce bien la electricidad y resiste muy bien el paso del tiempo. Así, el oro está presente tanto en joyas antiguas como en objetos modernos.",
+      "Hoy el oro sigue pareciendo especial porque une muchas ideas a la vez: belleza, rareza, resistencia y confianza. No es importante solo porque brille, sino porque durante siglos las personas lo miraron y decidieron que representaba algo valioso. A veces, las cosas importan mucho porque la naturaleza las hizo raras y las personas les dieron un significado enorme."
+    ],
+    "questions": [
+      {
+        "id": "g1",
+        "type": "multiple_choice",
+        "prompt": "¿Qué llamaba la atención del oro desde hace miles de años?",
+        "options": ["Su brillo amarillo", "Su olor dulce", "Su sonido fuerte"],
+        "correctAnswer": "Su brillo amarillo",
+        "explanation": "El texto dice que el brillo amarillo del oro llamaba mucho la atención."
+      },
+      {
+        "id": "g2",
+        "type": "true_false",
+        "prompt": "El texto dice que el oro es fácil de encontrar en cualquier parte.",
+        "correctAnswer": "Falso",
+        "explanation": "El texto explica que no es fácil de encontrar y por eso se considera raro."
+      },
+      {
+        "id": "g3",
+        "type": "multiple_choice",
+        "prompt": "¿Por qué el oro dura tanto tiempo?",
+        "options": ["Porque no se oxida con facilidad", "Porque flota en el agua", "Porque cambia de color"],
+        "correctAnswer": "Porque no se oxida con facilidad",
+        "explanation": "El texto explica que el oro no se oxida fácilmente y por eso dura mucho."
+      },
+      {
+        "id": "g4",
+        "type": "short_text",
+        "prompt": "Escribe un objeto que, según el texto, podía hacerse con oro.",
+        "acceptedAnswers": ["coronas", "monedas", "collares", "joyas", "objetos"],
+        "explanation": "El texto menciona coronas, monedas, collares y otros objetos."
+      },
+      {
+        "id": "g5",
+        "type": "true_false",
+        "prompt": "Muchas personas se pusieron de acuerdo en darle valor al oro.",
+        "correctAnswer": "Verdadero",
+        "explanation": "Esa es una de las ideas principales del texto."
+      },
+      {
+        "id": "g6",
+        "type": "matching",
+        "prompt": "Une cada idea con su descripción.",
+        "pairs": [
+          { "left": "Brillo", "right": "Llamaba la atención" },
+          { "left": "Oro", "right": "Resiste muy bien el paso del tiempo" },
+          { "left": "Aparatos electrónicos", "right": "Usan pequeñas piezas de oro" }
+        ],
+        "rightOptions": ["Llamaba la atención", "Resiste muy bien el paso del tiempo", "Usan pequeñas piezas de oro"],
+        "explanation": "Brillo - Llamaba la atención, Oro - Resiste muy bien el paso del tiempo, Aparatos electrónicos - Usan pequeñas piezas de oro."
+      },
+      {
+        "id": "g7",
+        "type": "multiple_choice",
+        "prompt": "Además de en joyas, ¿dónde dice el texto que se usa el oro hoy?",
+        "options": ["En aparatos electrónicos", "En nubes de lluvia", "En troncos de árboles"],
+        "correctAnswer": "En aparatos electrónicos",
+        "explanation": "El texto menciona piezas pequeñas de oro en aparatos electrónicos."
+      },
+      {
+        "id": "g8",
+        "type": "short_text",
+        "prompt": "Escribe una idea que el oro une hoy, según el texto.",
+        "acceptedAnswers": ["belleza", "rareza", "resistencia", "confianza"],
+        "explanation": "El texto dice que el oro une ideas como belleza, rareza, resistencia y confianza."
+      },
+      {
+        "id": "g9",
+        "type": "true_false",
+        "prompt": "El texto afirma que el oro es importante solo porque brilla.",
+        "correctAnswer": "Falso",
+        "explanation": "El texto dice que no es importante solo por su brillo, sino por varias razones."
+      },
+      {
+        "id": "g10",
+        "type": "multiple_choice",
+        "prompt": "¿Qué idea final transmite el texto?",
+        "options": [
+          "Que las cosas importan solo por su tamaño",
+          "Que el oro importa por su rareza y por el valor que las personas le dieron",
+          "Que el oro dejó de ser importante hace mucho tiempo"
+        ],
+        "correctAnswer": "Que el oro importa por su rareza y por el valor que las personas le dieron",
+        "explanation": "El texto termina explicando que la naturaleza lo hizo raro y las personas le dieron un significado enorme."
+      }
+    ]
   }
 ]
